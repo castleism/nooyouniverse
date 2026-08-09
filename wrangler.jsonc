@@ -1,0 +1,10 @@
+{
+  // Static-assets-only Worker for nooyouniverse.com (Cillian / Noo YouNiverse).
+  // No server code: Cloudflare serves everything in ./public directly.
+  "name": "nooyouniverse",
+  "compatibility_date": "2026-08-09",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}
