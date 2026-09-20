@@ -6,9 +6,24 @@
 <title>Private observation log — Noo YouNiverse</title>
 <meta name="description" content="Private, on-device observation notes linked to approved Noo YouNiverse missions. Not medical measurements, not a released product.">
 <meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0b0e24">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo Log">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="ackGate" class="gate hidden" role="dialog" aria-labelledby="gateTitle" aria-modal="true">
+  <div class="gate-card">
+    <p class="kicker">Before any notes</p>
+    <h2 id="gateTitle">This is a private observation log</h2>
+    <p>Adults 21+ only. Educational, not medical advice. Notes are not measurements, diagnoses, doses, or sensor readings. Nothing is prescribed. Cillian is fictional. Data stays on this device unless you export it.</p>
+    <button type="button" class="btn btn-amber" id="acceptGate">I am 21+ and I understand</button>
+  </div>
+</div>
 <div class="app">
   <header class="top">
     <div class="kicker">Debug prototype · not a store release</div>
@@ -21,6 +36,7 @@
     Notes stay on this device. This milestone does not read sensors, invent clinical claims, or prescribe anything.
     Educational only — not medical advice. Adults 21+. Cillian is fictional.
   </div>
+  <div id="recoveryBanner" class="banner hidden" role="alert"></div>
 
   <main>
     <section id="panel-missions" class="panel active" data-panel="missions"></section>

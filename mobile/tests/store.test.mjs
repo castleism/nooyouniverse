@@ -128,10 +128,89 @@ test("validated export/import: fixture merge, replace, and rejects", () => {
 test("export envelope labels the file as observations, not measurements", () => {
   const store = NooLog.createStore(catalog, NooLog.memoryAdapter(""));
   store.create(draft());
-  const doc = store.exportDocument();
+  const exported = store.exportDocument();
+  assert.equal(exported.ok, true);
+  const doc = exported.value;
   assert.equal(doc.format, "noo-private-observation-log");
   assert.equal(doc.kind, "private-observation-log");
   assert.ok(doc.not.includes("measurement-export"));
   assert.ok(doc.not.includes("clinical-claim"));
   assert.equal(doc.observations[0].kind, "observation");
+});
+
+test("edits keep an append-only correction history", () => {
+  const store = NooLog.createStore(catalog, NooLog.memoryAdapter(""));
+  const created = store.create(draft({ outcome: "First note.", outcomeKind: "noticed" }));
+  const edited = store.update(created.value.id, {
+    outcome: "Corrected note. Still not a measurement.",
+    outcomeKind: "null",
+    uncertainty: "medium",
+  });
+  assert.equal(edited.ok, true);
+  assert.equal(edited.value.corrections.length, 1);
+  assert.equal(edited.value.corrections[0].outcome, "First note.");
+  assert.equal(edited.value.corrections[0].outcomeKind, "noticed");
+  assert.equal(edited.value.outcomeKind, "null");
+});
+
+test("stayedComparable is stored as context, not a measurement", () => {
+  const store = NooLog.createStore(catalog, NooLog.memoryAdapter(""));
+  const created = store.create(
+    draft({
+      context: {
+        sleepWindow: "Usual window",
+        workload: "Light",
+        environment: "Same room",
+        timingNotes: "Evening",
+        stayedComparable: "Same desk, same evening hour",
+        other: "",
+      },
+    })
+  );
+  assert.equal(created.ok, true);
+  assert.equal(created.value.context.stayedComparable, "Same desk, same evening hour");
+  assert.equal(store.search("same desk").length, 1);
+});
+
+test("search can filter by mission and outcome kind", () => {
+  const store = NooLog.createStore(catalog, NooLog.memoryAdapter(""));
+  store.create(draft({ missionId: "mission-07", outcomeKind: "null", variable: "Lamp vs overhead" }));
+  store.create(draft({ missionId: "mission-11", outcomeKind: "noticed", variable: "Sleep window noted first", outcome: "Noted the window." }));
+  assert.equal(store.search("", { missionId: "mission-07" }).length, 1);
+  assert.equal(store.search("", { outcomeKind: "null" }).length, 1);
+  assert.equal(store.search("lamp", { missionId: "mission-11" }).length, 0);
+});
+
+test("inspect recovers from corrupt storage without inventing notes", () => {
+  const adapter = NooLog.memoryAdapter("{not json");
+  const store = NooLog.createStore(catalog, adapter);
+  const inspected = store.inspect();
+  assert.equal(inspected.ok, false);
+  assert.match(inspected.errors.join(" "), /not valid JSON/);
+  const discarded = store.discardUnreadable();
+  assert.equal(discarded.ok, true);
+  assert.deepEqual(store.list(), []);
+});
+
+test("wipe clears observations and 21+ ack is separate", () => {
+  const memory = {};
+  const storage = {
+    getItem: (k) => memory[k] || null,
+    setItem: (k, v) => {
+      memory[k] = v;
+    },
+    removeItem: (k) => {
+      delete memory[k];
+    },
+  };
+  const store = NooLog.createStore(catalog, NooLog.localStorageAdapter(NooLog.STORAGE_KEY, storage));
+  store.create(draft());
+  assert.equal(store.list().length, 1);
+  NooLog.writeAck(storage);
+  assert.ok(NooLog.readAck(storage));
+  store.clear();
+  assert.deepEqual(store.list(), []);
+  assert.ok(NooLog.readAck(storage), "ack is not observation data");
+  NooLog.clearAck(storage);
+  assert.equal(NooLog.readAck(storage), null);
 });

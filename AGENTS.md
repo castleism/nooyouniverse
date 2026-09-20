@@ -29,6 +29,7 @@ Mission 09 and the homepage waitlist describe an **unbuilt / not-released produc
 - No sensors, no invented vitals, no dosing, no diagnosis.
 - Persistence is local (`localStorage` / Android WebView DOM storage).
 - Export/import is versioned JSON (`noo-private-observation-log` v1) and rejects unknown missions and clinical/measurement fields.
+- Edits keep an append-only correction history. Users can wipe all notes on device. A 21+ / not-medical acknowledgment is stored separately from notes.
 - Test fixtures in `mobile/tests/fixtures/` are synthetic. The app starts empty.
 - Existing owner phone-test prototypes are local and are **not** in this cloud checkout. Do not claim access to them. If signing keys differ, use export/import or side-by-side install.
 
@@ -37,10 +38,12 @@ Mission 09 and the homepage waitlist describe an **unbuilt / not-released produc
 ```bash
 cd mobile
 npm test
+npm run smoke   # headless Chrome, skipped if Chrome/puppeteer-core missing
 npm run serve   # http://127.0.0.1:4173
 ```
 
 Android debug APK (when an SDK is present): see `docs/BUILD-ANDROID.md`.
+iOS from this Linux checkout: home-screen PWA only — `docs/IOS-HOME-SCREEN.md`.
 
 ## Hard limits
 

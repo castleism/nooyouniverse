@@ -1,5 +1,5 @@
 /**
- * Noo YouNiverse — private observation log (milestone 1).
+ * Noo YouNiverse — private observation log.
  *
  * Observations are first-person notes linked to approved missions.
  * They are not medical measurements, sensor readings, diagnoses, or claims.
@@ -16,7 +16,9 @@
   var FORMAT = "noo-private-observation-log";
   var VERSION = 1;
   var STORAGE_KEY = "noo.observationLog.v1";
+  var ACK_KEY = "noo.observationLog.ack.v1";
   var KIND = "private-observation-log";
+  var MAX_CORRECTIONS = 40;
 
   var OUTCOME_KINDS = ["noticed", "null", "inconclusive"];
   var PATTERNS = ["first", "repeated", "did_not_repeat", "unknown"];
@@ -101,8 +103,50 @@
       workload: trim(src.workload),
       environment: trim(src.environment),
       timingNotes: trim(src.timingNotes),
+      stayedComparable: trim(src.stayedComparable),
       other: trim(src.other),
     };
+  }
+
+  function snapshotNote(row) {
+    return {
+      recordedAt: trim(row.updatedAt) || trim(row.createdAt) || nowIso(),
+      missionId: trim(row.missionId),
+      observedAt: trim(row.observedAt),
+      variable: trim(row.variable),
+      context: normalizeContext(row.context),
+      expectation: trim(row.expectation),
+      outcome: trim(row.outcome),
+      outcomeKind: trim(row.outcomeKind),
+      pattern: trim(row.pattern),
+      uncertainty: trim(row.uncertainty),
+      notes: trim(row.notes),
+    };
+  }
+
+  function normalizeCorrections(raw) {
+    if (!Array.isArray(raw)) return [];
+    var out = [];
+    for (var i = 0; i < raw.length && out.length < MAX_CORRECTIONS; i++) {
+      if (!isPlainObject(raw[i])) continue;
+      out.push(snapshotNote(raw[i]));
+    }
+    return out;
+  }
+
+  function comparablePayload(row) {
+    return JSON.stringify({
+      missionId: row.missionId,
+      observedAt: row.observedAt,
+      variable: row.variable,
+      context: normalizeContext(row.context),
+      expectation: trim(row.expectation),
+      outcome: trim(row.outcome),
+      outcomeKind: row.outcomeKind,
+      pattern: row.pattern,
+      uncertainty: row.uncertainty,
+      notes: trim(row.notes),
+    });
   }
 
   function validateObservation(raw, catalog, options) {
@@ -184,6 +228,7 @@
         pattern: pattern,
         uncertainty: uncertainty,
         notes: trim(raw.notes),
+        corrections: normalizeCorrections(raw.corrections),
         kind: "observation",
         notAMeasurement: true,
       },
@@ -277,26 +322,90 @@
     };
   }
 
+  function readAck(storage) {
+    if (!storage) return null;
+    var raw = storage.getItem(ACK_KEY);
+    if (!raw) return null;
+    try {
+      var parsed = JSON.parse(raw);
+      if (
+        isPlainObject(parsed) &&
+        parsed.version === 1 &&
+        parsed.adultsOnly === true &&
+        parsed.notMedicalAdvice === true &&
+        parsed.observationsAreNotMeasurements === true
+      ) {
+        return parsed;
+      }
+    } catch (err) {
+      return null;
+    }
+    return null;
+  }
+
+  function writeAck(storage, extra) {
+    extra = extra || {};
+    var payload = {
+      version: 1,
+      adultsOnly: true,
+      notMedicalAdvice: true,
+      observationsAreNotMeasurements: true,
+      acceptedAt: extra.acceptedAt || nowIso(),
+    };
+    if (storage) storage.setItem(ACK_KEY, JSON.stringify(payload));
+    return payload;
+  }
+
+  function clearAck(storage) {
+    if (storage) storage.removeItem(ACK_KEY);
+  }
+
+  function inspectStored(catalog, persist) {
+    var raw = persist.read();
+    if (!raw) {
+      return { ok: true, empty: true, raw: "", observations: [], errors: [] };
+    }
+    var parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      return {
+        ok: false,
+        empty: false,
+        raw: raw,
+        observations: [],
+        errors: ["stored observation log is not valid JSON"],
+      };
+    }
+    var checked = validateDocument(parsed, catalog);
+    if (!checked.ok) {
+      return { ok: false, empty: false, raw: raw, observations: [], errors: checked.errors };
+    }
+    return {
+      ok: true,
+      empty: checked.value.observations.length === 0,
+      raw: raw,
+      observations: checked.value.observations,
+      errors: [],
+    };
+  }
+
   function createStore(catalog, adapter) {
     if (!catalog || !Array.isArray(catalog.missions)) {
       throw new Error("approved mission catalog is required");
     }
     var persist = adapter || memoryAdapter("");
 
+    function inspect() {
+      return inspectStored(catalog, persist);
+    }
+
     function loadAll() {
-      var raw = persist.read();
-      if (!raw) return [];
-      var parsed;
-      try {
-        parsed = JSON.parse(raw);
-      } catch (err) {
-        throw new Error("stored observation log is not valid JSON");
+      var inspected = inspect();
+      if (!inspected.ok) {
+        throw new Error("stored observation log failed validation: " + inspected.errors.join("; "));
       }
-      var checked = validateDocument(parsed, catalog);
-      if (!checked.ok) {
-        throw new Error("stored observation log failed validation: " + checked.errors.join("; "));
-      }
-      return checked.value.observations;
+      return inspected.observations;
     }
 
     function saveAll(list) {
@@ -320,11 +429,16 @@
     function create(input) {
       var checked = validateObservation(input, catalog);
       if (!checked.ok) return checked;
-      var rows = loadAll();
+      var inspected = inspect();
+      if (!inspected.ok) {
+        return { ok: false, errors: inspected.errors };
+      }
+      var rows = inspected.observations;
       var stamp = nowIso();
       var row = Object.assign({}, checked.value, {
         createdAt: stamp,
         updatedAt: stamp,
+        corrections: [],
       });
       rows.push(row);
       saveAll(rows);
@@ -332,19 +446,31 @@
     }
 
     function update(id, input) {
-      var rows = loadAll();
+      var inspected = inspect();
+      if (!inspected.ok) return { ok: false, errors: inspected.errors };
+      var rows = inspected.observations;
       var idx = -1;
       for (var i = 0; i < rows.length; i++) {
         if (rows[i].id === id) idx = i;
       }
       if (idx === -1) return { ok: false, errors: ["observation not found"] };
-      var merged = Object.assign({}, rows[idx], input, { id: id, createdAt: rows[idx].createdAt });
+      var previous = rows[idx];
+      var merged = Object.assign({}, previous, input, {
+        id: id,
+        createdAt: previous.createdAt,
+        corrections: previous.corrections,
+      });
       var checked = validateObservation(merged, catalog, { requireId: true });
       if (!checked.ok) return checked;
+      var corrections = normalizeCorrections(previous.corrections);
+      if (comparablePayload(previous) !== comparablePayload(checked.value)) {
+        corrections = [snapshotNote(previous)].concat(corrections).slice(0, MAX_CORRECTIONS);
+      }
       var row = Object.assign({}, checked.value, {
         id: id,
-        createdAt: rows[idx].createdAt,
+        createdAt: previous.createdAt,
         updatedAt: nowIso(),
+        corrections: corrections,
       });
       rows[idx] = row;
       saveAll(rows);
@@ -352,7 +478,9 @@
     }
 
     function remove(id) {
-      var rows = loadAll();
+      var inspected = inspect();
+      if (!inspected.ok) return { ok: false, errors: inspected.errors };
+      var rows = inspected.observations;
       var next = rows.filter(function (row) {
         return row.id !== id;
       });
@@ -361,11 +489,25 @@
       return { ok: true, errors: [], value: { id: id } };
     }
 
-    function search(query) {
+    function matchesFilters(row, filters) {
+      var f = filters || {};
+      if (f.missionId && row.missionId !== f.missionId) return false;
+      if (f.outcomeKind && row.outcomeKind !== f.outcomeKind) return false;
+      return true;
+    }
+
+    function search(query, filters) {
       var q = trim(query).toLowerCase();
-      var rows = list();
+      var rows = list().filter(function (row) {
+        return matchesFilters(row, filters);
+      });
       if (!q) return rows;
       return rows.filter(function (row) {
+        var correctionText = (row.corrections || [])
+          .map(function (c) {
+            return [c.variable, c.outcome, c.expectation, c.notes].join(" ");
+          })
+          .join("\n");
         var hay = [
           row.variable,
           row.outcome,
@@ -380,7 +522,9 @@
           row.context.workload,
           row.context.environment,
           row.context.timingNotes,
+          row.context.stayedComparable,
           row.context.other,
+          correctionText,
         ]
           .join("\n")
           .toLowerCase();
@@ -389,19 +533,32 @@
     }
 
     function exportDocument() {
-      return documentEnvelope(list());
+      var inspected = inspect();
+      if (!inspected.ok) {
+        return { ok: false, errors: inspected.errors, raw: inspected.raw };
+      }
+      return { ok: true, errors: [], value: documentEnvelope(list()), raw: inspected.raw };
     }
 
     function importDocument(raw, mode) {
       var checked = validateDocument(raw, catalog);
       if (!checked.ok) return checked;
       var incoming = checked.value.observations;
+      var inspected = inspect();
+      if (!inspected.ok && mode !== "replace") {
+        return {
+          ok: false,
+          errors: ["local store is unreadable; export the raw copy, then import with replace"].concat(
+            inspected.errors
+          ),
+        };
+      }
       var next;
       if (mode === "replace") {
         next = incoming;
       } else {
         var map = Object.create(null);
-        var existing = loadAll();
+        var existing = inspected.ok ? inspected.observations : [];
         for (var i = 0; i < existing.length; i++) map[existing[i].id] = existing[i];
         for (var j = 0; j < incoming.length; j++) map[incoming[j].id] = incoming[j];
         next = Object.keys(map).map(function (k) {
@@ -416,6 +573,11 @@
       saveAll([]);
     }
 
+    function discardUnreadable() {
+      saveAll([]);
+      return { ok: true, errors: [], value: documentEnvelope([]) };
+    }
+
     return {
       list: list,
       get: get,
@@ -426,6 +588,8 @@
       exportDocument: exportDocument,
       importDocument: importDocument,
       clear: clear,
+      inspect: inspect,
+      discardUnreadable: discardUnreadable,
     };
   }
 
@@ -433,6 +597,7 @@
     FORMAT: FORMAT,
     VERSION: VERSION,
     STORAGE_KEY: STORAGE_KEY,
+    ACK_KEY: ACK_KEY,
     KIND: KIND,
     OUTCOME_KINDS: OUTCOME_KINDS,
     PATTERNS: PATTERNS,
@@ -445,5 +610,9 @@
     localStorageAdapter: localStorageAdapter,
     createStore: createStore,
     missionIndex: missionIndex,
+    readAck: readAck,
+    writeAck: writeAck,
+    clearAck: clearAck,
+    snapshotNote: snapshotNote,
   };
 });

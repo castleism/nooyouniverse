@@ -21,8 +21,11 @@
     selectedMissionId: "",
     editingId: "",
     query: "",
+    missionFilter: "",
+    outcomeFilter: "",
     status: "",
     statusKind: "",
+    acknowledged: !!NooLog.readAck(storage),
   };
 
   function $(id) {
@@ -70,6 +73,33 @@
     return d.toISOString().slice(0, 16);
   }
 
+  function renderGate() {
+    $("ackGate").classList.toggle("hidden", state.acknowledged);
+  }
+
+  function renderRecovery() {
+    var inspected = store.inspect();
+    var box = $("recoveryBanner");
+    if (inspected.ok) {
+      box.classList.add("hidden");
+      box.innerHTML = "";
+      return inspected;
+    }
+    box.classList.remove("hidden");
+    box.innerHTML =
+      "<strong>This device copy cannot be read as an observation log.</strong>" +
+      "<p>Nothing was invented to replace it. You can download the raw bytes, then discard them if they are unusable. Import with replace only after you have a copy.</p>" +
+      "<p class='status err'>" +
+      escapeHtml(inspected.errors.join(" ")) +
+      "</p>" +
+      "<div class='actions'>" +
+      "<button type='button' class='btn btn-ghost' id='downloadRawBroken'>Download raw copy</button>" +
+      "<button type='button' class='btn btn-danger' id='discardBroken'>Discard unreadable copy</button>" +
+      "</div>";
+    box.dataset.raw = inspected.raw || "";
+    return inspected;
+  }
+
   function renderMissions() {
     var cards = catalog.missions
       .map(function (m) {
@@ -83,7 +113,7 @@
           "<h2>" +
           escapeHtml(m.title) +
           "</h2>" +
-          '<p>' +
+          "<p>" +
           escapeHtml(m.prompt || "Use this approved mission as context for one ordinary, non-medical observation.") +
           "</p>" +
           '<span class="basis">' +
@@ -98,8 +128,37 @@
       cards;
   }
 
+  function renderCorrections(editing) {
+    if (!editing || !editing.corrections || !editing.corrections.length) {
+      return "";
+    }
+    var items = editing.corrections
+      .map(function (c) {
+        return (
+          "<li><span class='num'>" +
+          escapeHtml(c.recordedAt) +
+          "</span><p>" +
+          escapeHtml(c.outcomeKind) +
+          " · " +
+          escapeHtml(c.variable) +
+          " — " +
+          escapeHtml(c.outcome) +
+          "</p></li>"
+        );
+      })
+      .join("");
+    return (
+      "<div class='card' id='correctionHistory'><div class='num'>CORRECTION HISTORY</div>" +
+      "<p class='help'>Earlier versions stay on this device. Edits do not invent a cleaner past.</p>" +
+      "<ol class='corrections'>" +
+      items +
+      "</ol></div>"
+    );
+  }
+
   function renderLog() {
-    var editing = state.editingId ? store.get(state.editingId) : null;
+    var inspected = store.inspect();
+    var editing = state.editingId && inspected.ok ? store.get(state.editingId) : null;
     var selected = state.selectedMissionId || (editing && editing.missionId) || "";
     var mission = missionById(selected);
     var options = catalog.missions
@@ -129,6 +188,7 @@
           escapeHtml(mission.sourceBasis) +
           "</span></div>"
         : "") +
+      renderCorrections(editing) +
       '<form id="obsForm">' +
       "<label for='missionId'>Approved mission</label>" +
       "<select id='missionId' name='missionId' required><option value=''>Select a published mission</option>" +
@@ -159,6 +219,11 @@
       "<input id='timingNotes' name='timingNotes' value='" +
       escapeHtml(ctx.timingNotes || "") +
       "'>" +
+      "<label for='stayedComparable'>What stayed roughly comparable</label>" +
+      "<input id='stayedComparable' name='stayedComparable' value='" +
+      escapeHtml(ctx.stayedComparable || "") +
+      "'>" +
+      "<p class='help'>Mission 06 starter field. A note about what did not change — not a controlled-trial claim.</p>" +
       "<label for='otherContext'>Anything unusual</label>" +
       "<input id='otherContext' name='otherContext' value='" +
       escapeHtml(ctx.other || "") +
@@ -223,7 +288,21 @@
   }
 
   function renderHistory() {
-    var rows = store.search(state.query);
+    var inspected = store.inspect();
+    if (!inspected.ok) {
+      $("panel-history").innerHTML =
+        "<p class='empty'>History is locked until the unreadable copy is exported or discarded.</p>";
+      return;
+    }
+    var rows = store.search(state.query, {
+      missionId: state.missionFilter,
+      outcomeKind: state.outcomeFilter,
+    });
+    var missionOptions = catalog.missions
+      .map(function (m) {
+        return option(m.id, "Mission " + String(m.number).padStart(2, "0"), state.missionFilter);
+      })
+      .join("");
     var cards = rows
       .map(function (row) {
         return (
@@ -250,6 +329,9 @@
           "'>uncertainty: " +
           escapeHtml(row.uncertainty) +
           "</span>" +
+          (row.corrections && row.corrections.length
+            ? "<span class='badge'>corrections: " + row.corrections.length + "</span>"
+            : "") +
           "<span class='badge'>" +
           escapeHtml(new Date(row.observedAt).toLocaleString()) +
           "</span>" +
@@ -263,23 +345,35 @@
       "<input class='search' id='historySearch' value='" +
       escapeHtml(state.query) +
       "' placeholder='mission, variable, null, context…'>" +
+      "<label for='missionFilter'>Filter by mission</label>" +
+      "<select id='missionFilter'><option value=''>All approved missions</option>" +
+      missionOptions +
+      "</select>" +
+      "<label for='outcomeFilter'>Filter by outcome</label>" +
+      "<select id='outcomeFilter'>" +
+      "<option value=''>All outcomes</option>" +
+      option("null", "Null results", state.outcomeFilter) +
+      option("noticed", "Noticed", state.outcomeFilter) +
+      option("inconclusive", "Inconclusive", state.outcomeFilter) +
+      "</select>" +
       (rows.length
         ? cards +
           "<div class='actions'><button type='button' class='btn btn-danger' id='deleteCurrent' " +
           (state.editingId ? "" : "disabled") +
           ">Delete opened entry</button></div>"
-        : state.query
+        : state.query || state.missionFilter || state.outcomeFilter
           ? "<p class='empty'>No observations match that search. Nothing was invented to fill the gap.</p>"
           : "<p class='empty'>No observations yet. The app starts empty — fixtures live only in tests.</p>");
   }
 
   function renderTransfer() {
-    var exported = JSON.stringify(store.exportDocument(), null, 2);
+    var exported = store.exportDocument();
+    var text = exported.ok ? JSON.stringify(exported.value, null, 2) : exported.raw || "";
     $("panel-transfer").innerHTML =
-      "<p class='help'>Validated JSON only. Import rejects unknown missions and any measurement/clinical fields. If a later APK is signed with a different debug key, export here and import there instead of overwriting device data.</p>" +
+      "<p class='help'>Validated JSON only. Import rejects unknown missions and any measurement/clinical fields. If a later APK is signed with a different debug key, export here and import there instead of overwriting device data. Wipe deletes personal notes on this device after you confirm — export first.</p>" +
       "<label for='exportBox'>Current export</label>" +
       "<textarea class='mono' id='exportBox' readonly>" +
-      escapeHtml(exported) +
+      escapeHtml(text) +
       "</textarea>" +
       "<div class='actions'>" +
       "<button type='button' class='btn btn-amber' id='downloadExport'>Download JSON</button>" +
@@ -292,6 +386,7 @@
       "<label for='importMode'>Import mode</label>" +
       "<select id='importMode'><option value='merge'>Merge by id (keep others)</option><option value='replace'>Replace all local observations</option></select>" +
       "<div class='actions'><button type='button' class='btn btn-amber' id='runImport'>Import</button></div>" +
+      "<div class='actions'><button type='button' class='btn btn-danger' id='wipeAll'>Delete all notes on this device</button></div>" +
       "<p class='status " +
       escapeHtml(state.statusKind) +
       "' role='status'>" +
@@ -300,6 +395,9 @@
   }
 
   function render() {
+    renderGate();
+    renderRecovery();
+    if (!state.acknowledged) return;
     if (state.tab === "missions") renderMissions();
     if (state.tab === "log") renderLog();
     if (state.tab === "history") renderHistory();
@@ -316,6 +414,7 @@
         workload: $("workload").value,
         environment: $("environment").value,
         timingNotes: $("timingNotes").value,
+        stayedComparable: $("stayedComparable").value,
         other: $("otherContext").value,
       },
       expectation: $("expectation").value,
@@ -342,6 +441,24 @@
   }
 
   document.body.addEventListener("click", function (event) {
+    if (event.target.id === "acceptGate") {
+      NooLog.writeAck(storage);
+      state.acknowledged = true;
+      render();
+      return;
+    }
+    if (event.target.id === "downloadRawBroken") {
+      downloadText("noo-observation-log-unreadable.json", $("recoveryBanner").dataset.raw || "");
+      return;
+    }
+    if (event.target.id === "discardBroken") {
+      if (window.confirm("Discard the unreadable copy on this device? Export it first if you may still want the bytes.")) {
+        store.discardUnreadable();
+        setStatus("ok", "Unreadable copy discarded. The log is empty.");
+        render();
+      }
+      return;
+    }
     var tab = event.target.closest("[data-tab]");
     if (tab) {
       state.status = "";
@@ -393,6 +510,19 @@
       $("exportBox").select();
       setStatus("ok", "Export copied or selected.");
       renderTransfer();
+      return;
+    }
+    if (event.target.id === "wipeAll") {
+      if (
+        window.confirm(
+          "Delete every observation on this device? This does not contact a server. Export first if you want a copy."
+        )
+      ) {
+        store.clear();
+        state.editingId = "";
+        setStatus("ok", "All observations deleted from this device.");
+        renderTransfer();
+      }
       return;
     }
     if (event.target.id === "runImport") {
@@ -455,7 +585,19 @@
       state.selectedMissionId = event.target.value;
       renderLog();
     }
+    if (event.target.id === "missionFilter") {
+      state.missionFilter = event.target.value;
+      renderHistory();
+    }
+    if (event.target.id === "outcomeFilter") {
+      state.outcomeFilter = event.target.value;
+      renderHistory();
+    }
   });
+
+  if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
 
   render();
 })();
