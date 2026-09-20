@@ -21,7 +21,7 @@ npm test
 #    Copy mobile/android/local.properties.example → local.properties
 #    Set sdk.dir to the absolute SDK path.
 
-# 3. Generate or use the Gradle wrapper, then assemble debug
+# 3. The Gradle wrapper is committed. Assemble debug:
 cd android
 ./gradlew :app:assembleDebug
 ```

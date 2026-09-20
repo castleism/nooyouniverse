@@ -17,9 +17,9 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Persistence across relaunch | ✅ Implemented (local store + reload) |
 | Observations kept distinct from measurements | ✅ Enforced in schema + import |
 | Fixtures isolated from shipped UI | ✅ `mobile/tests/fixtures/` only |
-| Meaningful automated tests | ⏳ Recorded after `npm test` |
-| Mobile browser smoke | ⏳ Recorded after manual pass |
-| Installable Android debug APK | ⏳ Recorded if SDK/tooling permits |
+| Meaningful automated tests | ✅ 11/11 passed 2026-09-20 (`cd mobile && npm test`) |
+| Mobile browser smoke | ✅ 2026-09-20 on `http://127.0.0.1:4173` (iPhone XR viewport) |
+| Installable Android debug APK | ✅ Debug APK assembled in this environment |
 | Public site waitlist / Mission 09 product claims unchanged | ✅ Intentionally unchanged |
 | Local owner phone prototypes | ❌ Not in this cloud checkout — do not claim access |
 
@@ -48,10 +48,12 @@ Not a released product, treatment tool, recommendation engine, medical record, m
 - Android SDK / Gradle are environment-dependent. If this run cannot produce an APK, the web build + `docs/BUILD-ANDROID.md` remain the reproducible path.
 - Mission 12 caffeine draft is an open PR, not approved canon. Do not add it to the catalog until it lands on `main`.
 
-## Evidence log (fill as work is verified)
+## Evidence log (verified 2026-09-20 in this cloud checkout)
 
 | Check | Result | Notes |
 |---|---|---|
-| `cd mobile && npm test` | pending | |
-| Browser smoke (missions, save, reload, search, edit, export/import) | pending | |
-| Android debug APK | pending | |
+| `cd mobile && npm test` | ✅ 11/11 | Catalog matches `public/log.html` 01–11; persistence, search, edit, delete; fixture export/import; rejects unknown missions and measurement fields |
+| Browser smoke | ✅ | Missions catalog, empty start, Mission 07 null observation, reload persistence, search `desk lamp` / no `heart rate`, edit uncertainty, export envelope, `heartRate` import rejected |
+| Android debug APK | ✅ | `mobile/dist/noo-observation-log-debug.apk` (debug keystore, this environment). Contains offline `assets/www/*`. No `INTERNET` permission. Not a store build. |
+
+Owner phone-test prototypes remain local and were **not** available here. If a later sideload uses a different signature, export JSON from the old install and import — do not overwrite.

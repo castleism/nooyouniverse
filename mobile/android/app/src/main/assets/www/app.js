@@ -268,7 +268,9 @@
           "<div class='actions'><button type='button' class='btn btn-danger' id='deleteCurrent' " +
           (state.editingId ? "" : "disabled") +
           ">Delete opened entry</button></div>"
-        : "<p class='empty'>No observations yet. The app starts empty — fixtures live only in tests.</p>");
+        : state.query
+          ? "<p class='empty'>No observations match that search. Nothing was invented to fill the gap.</p>"
+          : "<p class='empty'>No observations yet. The app starts empty — fixtures live only in tests.</p>");
   }
 
   function renderTransfer() {
