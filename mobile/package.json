@@ -1,0 +1,13 @@
+{
+  "name": "noo-private-observation-log",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Mission-linked private observation tracker (debug milestone, not a store release)",
+  "scripts": {
+    "extract-missions": "node scripts/extract-missions.mjs",
+    "sync-assets": "node scripts/sync-web-assets.mjs",
+    "prepare-web": "npm run extract-missions && npm run sync-assets",
+    "test": "npm run prepare-web && node --test tests/*.test.mjs",
+    "serve": "npm run prepare-web && python3 -m http.server 4173 --directory web"
+  }
+}
