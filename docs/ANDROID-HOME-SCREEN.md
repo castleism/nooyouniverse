@@ -16,10 +16,12 @@ That icon is the **live** website. Waitlist submit works there. It is not the pr
 
 ## Observation log + offline site copy
 
-Those live in the debug APK (`docs/DEVICE-INSTALL.md`). One sideload gives you:
+Those live in the debug APK (`docs/DEVICE-INSTALL.md`). One sideload puts **three** icons on the launcher:
 
-- Check hub (every page and app to look at)
-- Offline snapshot of `public/`
-- Private observation log
+- **Noo YouNiverse** — offline snapshot of `public/`
+- **Noo Observation Log** — private notes app
+- **Noo Check Hub** — every page and live Chrome link to look at
+
+The APK is also copied to Google Drive folder **Noo YouNiverse — phone check** on the owner account so you can install from the Drive app on the phone.
 
 Do not confuse the Chrome home-screen icon (live site) with the APK icon (debug hub).

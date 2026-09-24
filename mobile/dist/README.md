@@ -1,6 +1,6 @@
 # Debug APK (this environment)
 
-`noo-observation-log-debug.apk` is a **sideload debug build** of **Noo Check Hub**: offline website copy, observation log, and live-page checklist. It is signed with that environment's debug keystore.
+`noo-observation-log-debug.apk` is a **sideload debug build** that installs **three** launcher apps: **Noo YouNiverse** (offline site copy), **Noo Observation Log**, and **Noo Check Hub**. It is signed with that environment's debug keystore. A copy of the install note lives in the owner Drive folder `Noo YouNiverse — phone check`.
 
 - Not a Play Store / App Store artifact. Do not submit it.
 - Existing owner phone prototypes are local and were not used to sign this file.

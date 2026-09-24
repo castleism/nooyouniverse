@@ -1,10 +1,10 @@
 # Owner device install — sideload + home-screen playbook
 
-This cloud checkout **cannot push files onto your physical phone**. After you copy the APK over, one install puts every Noo YouNiverse checker in one launcher icon.
+This cloud checkout cannot tap your launcher. The APK and install note are in your Google Drive folder so the phone can fetch them: https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway
 
 Debug APK: `mobile/dist/noo-observation-log-debug.apk`  
 Package id: `com.nooyouniverse.observationlog.debug`  
-Launcher name: **Noo Check Hub (debug)**  
+Launcher names after install: **Noo Check Hub**, **Noo YouNiverse**, **Noo Observation Log**  
 This build is **debug-signed**. Store submission is later.
 
 Existing local phone-test prototypes are **not** in this cloud checkout. Do not overwrite them.
@@ -34,9 +34,12 @@ Android will refuse an upgrade when the signature does not match.
 1. Enable Install unknown apps for the Files / browser app you will use.
 2. Copy `mobile/dist/noo-observation-log-debug.apk` to the phone.
 3. Install. Accept only the sideload prompt — this APK requests **no** network, sensors, or accounts.
-4. Open **Noo Check Hub (debug)**. You should see the checklist, not a blank store listing.
-5. Open **Offline website copy** and tap through Home → Mission Log → Sources → Corrections.
-6. Open **Private observation log**. Accept the 21+ / not-medical gate.
+4. After install you should see **three** home-screen apps from this one APK:
+   - **Noo YouNiverse** — saved website (offline copy of home, /log, /sources, /corrections)
+   - **Noo Observation Log** — the notes app we are building
+   - **Noo Check Hub** — every page and live Chrome link to check
+5. Open **Noo YouNiverse** and tap through Home → Mission Log → Sources → Corrections.
+6. Open **Noo Observation Log**. Accept the 21+ / not-medical gate.
 7. Log one ordinary, non-medical observation on Mission 07 (include a null result).
 8. Leave the app (Home). From Settings → Apps → Noo Check Hub → Force stop.
 9. Reopen. The observation must still be in History.

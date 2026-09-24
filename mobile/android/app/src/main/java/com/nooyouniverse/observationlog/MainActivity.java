@@ -82,12 +82,32 @@ public class MainActivity extends Activity {
             }
         });
         webView.addJavascriptInterface(new Bridge(), "NooBridge");
-        if (debugCmd != null) {
-            webView.loadUrl("file:///android_asset/www/index.html");
-        } else {
-            webView.loadUrl("file:///android_asset/www/hub.html");
-        }
+        webView.loadUrl(startUrl());
         setContentView(webView);
+    }
+
+    private String startUrl() {
+        if (debugCmd != null) {
+            return "file:///android_asset/www/index.html";
+        }
+        String open = getIntent() != null ? getIntent().getStringExtra("noo_open") : null;
+        if (open == null && getIntent() != null && getIntent().getComponent() != null) {
+            String name = getIntent().getComponent().getClassName();
+            if (name.endsWith(".SiteLauncher")) {
+                open = "site";
+            } else if (name.endsWith(".LogLauncher")) {
+                open = "log";
+            } else {
+                open = "hub";
+            }
+        }
+        if ("site".equals(open)) {
+            return "file:///android_asset/site/index.html";
+        }
+        if ("log".equals(open)) {
+            return "file:///android_asset/www/index.html";
+        }
+        return "file:///android_asset/www/hub.html";
     }
 
     @Override

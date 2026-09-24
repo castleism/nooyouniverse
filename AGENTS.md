@@ -46,6 +46,7 @@ Android debug APK (when an SDK is present): see `docs/BUILD-ANDROID.md`.
 Owner phone sideload + hub: `docs/DEVICE-INSTALL.md`.
 Android Chrome home-screen site: `docs/ANDROID-HOME-SCREEN.md`.
 Phone checklist: `docs/PHONE-CHECKLIST.md`.
+Owner Drive drop (APK + install note): https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway
 Human review packet (unsigned): `docs/REVIEW-PACKET.md`.
 Store copy drafts — do not submit: `docs/STORE-LISTING-DRAFT.md`.
 Remote sync stays gated: `docs/SYNC-BACKLOG.md`.

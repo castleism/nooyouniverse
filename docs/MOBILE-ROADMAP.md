@@ -35,6 +35,7 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Offline snapshot of `public/` in the APK | ✅ `npm run bundle-site` |
 | Live-site PWA files for Chrome Add to Home screen | ✅ `public/manifest.webmanifest` (live after human deploy) |
 | Phone checklist | ✅ `docs/PHONE-CHECKLIST.md` |
+| Three Android launcher apps from one APK (site + log + hub) | ✅ |
 
 ## Recommendations — what was done vs still human
 
@@ -67,4 +68,4 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Emulator force-stop persistence | ✅ 2026-09-24 | Seed count 1 → force-stop → dump still `noo-private-observation-log` observation |
 | Android debug APK | ✅ | `mobile/dist/noo-observation-log-debug.apk` |
 | Play / App Store submit | ❌ not done | Drafts only |
-| Owner phone | ❌ not in this checkout | Sideload APK + Chrome A2HS; Cursor cannot push to hardware |
+| Owner phone | ⚠️ APK + steps in Drive | https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway — you tap Install |

@@ -1,9 +1,10 @@
 # Phone checklist — websites and apps to look at
 
-Use this with **Noo Check Hub (debug)** on Android. Cursor cannot mark these done on your hardware.
+Use this with the three launcher icons from the debug APK. Fetch the APK from Drive: https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway
 
 ## On this device (APK)
 
+- [ ] Three launcher icons: Noo YouNiverse, Noo Observation Log, Noo Check Hub
 - [ ] Check hub opens
 - [ ] Offline home (`public/index.html` snapshot)
 - [ ] Offline Mission Log 01–11

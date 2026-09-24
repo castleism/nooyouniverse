@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Noo Check Hub (debug)</string>
+    <string name="app_name_hub">Noo Check Hub</string>
+    <string name="app_name_site">Noo YouNiverse</string>
+    <string name="app_name_log">Noo Observation Log</string>
+    <string name="shortcut_hub">Check hub</string>
+    <string name="shortcut_site">Website copy</string>
+    <string name="shortcut_log">Observation log</string>
 </resources>

@@ -20,6 +20,21 @@ test("check hub lists the website copy, observation log, and live pages", () => 
   assert.doesNotMatch(hub, /heartRate|dose|diagnosis/);
 });
 
+test("Android install exposes three launcher apps: hub, website copy, observation log", () => {
+  const manifest = readFileSync(
+    resolve(root, "mobile/android/app/src/main/AndroidManifest.xml"),
+    "utf8"
+  );
+  assert.match(manifest, /android:name="\.HubLauncher"/);
+  assert.match(manifest, /android:name="\.SiteLauncher"/);
+  assert.match(manifest, /android:name="\.LogLauncher"/);
+  assert.match(manifest, /app_name_hub/);
+  assert.match(manifest, /app_name_site/);
+  assert.match(manifest, /app_name_log/);
+  const aliases = manifest.match(/<activity-alias\b/g) || [];
+  assert.equal(aliases.length, 3);
+});
+
 test("offline site bundle rewrites clean URLs and stays non-clinical", () => {
   const run = spawnSync(process.execPath, [resolve(root, "mobile/scripts/bundle-site-copy.mjs")], {
     encoding: "utf8"
