@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -47,6 +48,17 @@ public class MainActivity extends Activity {
         settings.setAllowContentAccess(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return handleUrl(view, request.getUrl().toString());
+            }
+
+            @Override
+            @SuppressWarnings("deprecation")
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return handleUrl(view, url);
+            }
+
+            @Override
             public void onPageFinished(WebView view, String url) {
                 runDebugCommand();
             }
@@ -70,8 +82,51 @@ public class MainActivity extends Activity {
             }
         });
         webView.addJavascriptInterface(new Bridge(), "NooBridge");
-        webView.loadUrl("file:///android_asset/www/index.html");
+        if (debugCmd != null) {
+            webView.loadUrl("file:///android_asset/www/index.html");
+        } else {
+            webView.loadUrl("file:///android_asset/www/hub.html");
+        }
         setContentView(webView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    private boolean handleUrl(WebView view, String url) {
+        if (url == null) return false;
+        if (url.startsWith("noo-app://log")) {
+            view.loadUrl("file:///android_asset/www/index.html");
+            return true;
+        }
+        if (url.startsWith("noo-app://hub")) {
+            view.loadUrl("file:///android_asset/www/hub.html");
+            return true;
+        }
+        if (url.startsWith("noo-app://site-page")) {
+            Uri parsed = Uri.parse(url);
+            String page = parsed.getQueryParameter("p");
+            if (page != null && page.matches("[A-Za-z0-9._-]+\\.html")) {
+                view.loadUrl("file:///android_asset/site/" + page);
+                return true;
+            }
+            return true;
+        }
+        if (url.startsWith("noo-app://site")) {
+            view.loadUrl("file:///android_asset/site/index.html");
+            return true;
+        }
+        if (url.startsWith("https://") || url.startsWith("http://")) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            return true;
+        }
+        return false;
     }
 
     private void runDebugCommand() {

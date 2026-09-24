@@ -23,7 +23,7 @@ Mission 09 and the homepage waitlist describe an **unbuilt / not-released produc
 
 ## Mobile milestone 1
 
-`mobile/` is a **private, on-device observation log** linked to the approved missions above.
+`mobile/` is a **private, on-device observation log** plus a debug **check hub** that also ships an offline snapshot of `public/`.
 
 - Observations are notes, not medical measurements.
 - No sensors, no invented vitals, no dosing, no diagnosis.
@@ -43,7 +43,9 @@ npm run serve   # http://127.0.0.1:4173
 ```
 
 Android debug APK (when an SDK is present): see `docs/BUILD-ANDROID.md`.
-Owner phone sideload: `docs/DEVICE-INSTALL.md`.
+Owner phone sideload + hub: `docs/DEVICE-INSTALL.md`.
+Android Chrome home-screen site: `docs/ANDROID-HOME-SCREEN.md`.
+Phone checklist: `docs/PHONE-CHECKLIST.md`.
 Human review packet (unsigned): `docs/REVIEW-PACKET.md`.
 Store copy drafts — do not submit: `docs/STORE-LISTING-DRAFT.md`.
 Remote sync stays gated: `docs/SYNC-BACKLOG.md`.

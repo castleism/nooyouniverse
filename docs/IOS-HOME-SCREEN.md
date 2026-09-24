@@ -11,7 +11,7 @@ The observation log is a **mobile web app / PWA**:
 3. The home-screen icon uses `mobile/web/icon.svg` and `manifest.webmanifest`.
 4. Notes still live in Safari/WebView storage on that device. They are not iCloud-synced by this app.
 
-Android already has a sideload debug APK. The PWA is the honest iOS install path until a Mac/Xcode job exists.
+Android already has a sideload debug APK that also carries an offline site copy (`docs/DEVICE-INSTALL.md`). The live public site can be added to the iOS home screen the same way once PWA files are deployed. The PWA is the honest iOS install path until a Mac/Xcode job exists.
 
 ## What this is not
 

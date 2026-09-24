@@ -1,6 +1,6 @@
 # Noo YouNiverse — mobile observation-log roadmap
 
-Updated: 2026-09-24 · Owner: Christian · Persona: Cillian / Noo YouNiverse  
+Updated: 2026-09-24 (check hub + offline site copy) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
 Companion to MyPersonas `nooyouniverse.com/SITE-ROADMAP.md` (site Phase 3 live; Package A still unapproved).
 
 This file tracks the **private debug tracker**, not a store product. Public Mission 09 remains an unbuilt-product concept.
@@ -31,12 +31,17 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Unit tests | ✅ `cd mobile && npm test` |
 | Headless Chrome smoke | ✅ `npm run smoke` |
 | Installable Android debug APK | ✅ `mobile/dist/noo-observation-log-debug.apk` |
+| Check hub of every site/app to verify | ✅ `mobile/web/hub.html` |
+| Offline snapshot of `public/` in the APK | ✅ `npm run bundle-site` |
+| Live-site PWA files for Chrome Add to Home screen | ✅ `public/manifest.webmanifest` (live after human deploy) |
+| Phone checklist | ✅ `docs/PHONE-CHECKLIST.md` |
 
 ## Recommendations — what was done vs still human
 
 | Recommendation | Cursor action this pass | Still needs a human |
 |---|---|---|
-| Owner phone install + process death | Playbook + **emulator** force-stop probe passed | Your phone (and export first if signing differs) |
+| Owner phone install + process death | Hub APK + offline site + playbook + emulator probe | Your phone: sideload + Chrome Add to Home screen |
+| Live website as a browser app | PWA files + `docs/ANDROID-HOME-SCREEN.md` | You tap Add to Home screen; merge/deploy for full PWA |
 | Privacy / legal / health review | Unsigned packet with data inventory and sign-off table | Named reviewers; Cursor did **not** sign |
 | Auth / remote sync | Documented why it stays out; no server added | Packet sign-off first |
 | No community / FHIR / sensors / dosing | Still not implemented | Do not approve those specs here |
@@ -62,4 +67,4 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Emulator force-stop persistence | ✅ 2026-09-24 | Seed count 1 → force-stop → dump still `noo-private-observation-log` observation |
 | Android debug APK | ✅ | `mobile/dist/noo-observation-log-debug.apk` |
 | Play / App Store submit | ❌ not done | Drafts only |
-| Owner phone | ❌ not in this checkout | Use `docs/DEVICE-INSTALL.md` |
+| Owner phone | ❌ not in this checkout | Sideload APK + Chrome A2HS; Cursor cannot push to hardware |

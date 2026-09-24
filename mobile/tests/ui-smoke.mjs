@@ -131,6 +131,13 @@ try {
   const err = await page.$eval(".status.err", (el) => el.textContent);
   assert.match(err, /heartRate/);
 
+  await page.goto("http://127.0.0.1:" + port + "/hub.html", { waitUntil: "domcontentloaded" });
+  const hub = await page.evaluate(() => document.body.innerText);
+  assert.match(hub, /Check hub/);
+  assert.match(hub, /Private observation log/);
+  assert.match(hub, /nooyouniverse.com/);
+  assert.doesNotMatch(hub, /heartRate/);
+
   console.log("UI smoke passed.");
 } finally {
   await browser.close();

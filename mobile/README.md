@@ -15,7 +15,7 @@ npm run serve
 Open `http://127.0.0.1:4173`. First launch asks for a 21+ / not-medical acknowledgment. The log itself starts with **zero** observations. JSON under `tests/fixtures/` is synthetic test data only.
 
 iPhone: `docs/IOS-HOME-SCREEN.md` (home-screen PWA; this Linux checkout cannot sign an IPA).
-Android: `docs/BUILD-ANDROID.md`.
+Android: `docs/BUILD-ANDROID.md`. Check hub + offline site copy: open `hub.html` or sideload the APK (`docs/DEVICE-INSTALL.md`). Live site on the home screen: `docs/ANDROID-HOME-SCREEN.md`.
 
 ## Rules baked into the store
 

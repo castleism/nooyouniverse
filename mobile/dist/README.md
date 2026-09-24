@@ -1,6 +1,6 @@
 # Debug APK (this environment)
 
-`noo-observation-log-debug.apk` is a **sideload debug build** produced in the cloud checkout that implemented milestone 1. It is signed with that environment's debug keystore.
+`noo-observation-log-debug.apk` is a **sideload debug build** of **Noo Check Hub**: offline website copy, observation log, and live-page checklist. It is signed with that environment's debug keystore.
 
 - Not a Play Store / App Store artifact. Do not submit it.
 - Existing owner phone prototypes are local and were not used to sign this file.

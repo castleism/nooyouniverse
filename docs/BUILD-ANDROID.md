@@ -1,8 +1,8 @@
 # Build the Android debug APK
 
-This produces a **sideload debug APK** for the private observation log. It is not a Play Store artifact. Do not upload it to any store from this recipe.
+This produces a **sideload debug APK** for **Noo Check Hub**: offline website copy, observation log, and a checklist of live pages. It is not a Play Store artifact. Do not upload it to any store from this recipe.
 
-The app uses a WebView over offline assets. It has no `INTERNET` permission and does not read sensors.
+The app uses a WebView over offline assets. It has no `INTERNET` permission and does not read sensors. Live `https://` taps open Chrome.
 
 ## Prerequisites
 
