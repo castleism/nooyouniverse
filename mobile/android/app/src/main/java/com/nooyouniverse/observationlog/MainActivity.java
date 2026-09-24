@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new Bridge(), "NooBridge");
         webView.loadUrl("file:///android_asset/www/index.html");
         setContentView(webView);
+        com.portfolio.guide.WindowSafety.apply(this);
     }
 
     @Override
