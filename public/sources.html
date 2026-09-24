@@ -16,6 +16,11 @@
 <meta property="og:image" content="https://nooyouniverse.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
 <style>
 :root{
   --ink:#0b0e24;--navy:#121736;--navy2:#1a2047;--line:#2b3163;
@@ -177,9 +182,14 @@ footer .fine{text-align:center;font-size:.78rem}
       <strong>Who — and what — is Cillian?</strong><br>
       Cillian O'Sullivan is a fictional Castleborn character and AI-assisted guide. He does not have a human body, a medical license, or any personal supplement-use history. Real-world health content on this project is educational, source-backed and human-reviewed. Nothing here is medical advice, diagnosis or treatment — talk to a qualified clinician or pharmacist about your own care.
     </div>
-    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · <a href="/">Home</a> · <a href="/log">Mission Log</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
+    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · <a href="/">Home</a> · <a href="/log">Mission Log</a> · <a href="/corrections">Corrections</a> · <a href="/check">Phone check</a> · <a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
   </div>
 </footer>
 
+<script>
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+  navigator.serviceWorker.register("/sw.js");
+}
+</script>
 </body>
 </html>
