@@ -43,8 +43,13 @@ npm run serve   # http://127.0.0.1:4173
 ```
 
 Android debug APK (when an SDK is present): see `docs/BUILD-ANDROID.md`.
+Owner phone sideload: `docs/DEVICE-INSTALL.md`.
+Human review packet (unsigned): `docs/REVIEW-PACKET.md`.
+Store copy drafts — do not submit: `docs/STORE-LISTING-DRAFT.md`.
+Remote sync stays gated: `docs/SYNC-BACKLOG.md`.
 iOS from this Linux checkout: home-screen PWA only — `docs/IOS-HOME-SCREEN.md`.
+Emulator process-death probe: `mobile/scripts/emulator-persistence.sh`.
 
 ## Hard limits
 
-Do not merge, deploy, publish to stores, change account permissions, use production secrets, or start paid services unless a human explicitly asks. Store accounts may be verified; submissions are later. Prefer small, honest diffs. Keep public `public/` architecture intact unless the task is a site change.
+Do not merge, deploy, publish to stores, change account permissions, use production secrets, or start paid services unless a human explicitly asks. Store accounts may be verified; submissions are later. Do not implement remote sync until `docs/REVIEW-PACKET.md` is signed. Prefer small, honest diffs. Keep public `public/` architecture intact unless the task is a site change.

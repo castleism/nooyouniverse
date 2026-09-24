@@ -13,6 +13,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -27,18 +29,28 @@ public class MainActivity extends Activity {
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
     private String pendingExportText;
+    private String debugCmd;
+    private boolean debugRan;
 
     @Override
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (BuildConfig.DEBUG && getIntent() != null) {
+            debugCmd = getIntent().getStringExtra("noo_debug_cmd");
+        }
         webView = new WebView(this);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(true);
         settings.setAllowContentAccess(true);
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                runDebugCommand();
+            }
+        });
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onShowFileChooser(
@@ -60,6 +72,41 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new Bridge(), "NooBridge");
         webView.loadUrl("file:///android_asset/www/index.html");
         setContentView(webView);
+    }
+
+    private void runDebugCommand() {
+        if (!BuildConfig.DEBUG || debugRan || debugCmd == null) return;
+        debugRan = true;
+        String js;
+        if ("seed".equals(debugCmd)) {
+            js = "(function(){try{"
+                    + "var c=globalThis.NOO_APPROVED_MISSIONS,N=globalThis.NooLog,s=localStorage;"
+                    + "N.writeAck(s);"
+                    + "var store=N.createStore(c,N.localStorageAdapter(N.STORAGE_KEY,s));"
+                    + "if(store.list().length===0){store.create({"
+                    + "missionId:'mission-07',"
+                    + "observedAt:new Date().toISOString(),"
+                    + "variable:'Emulator process-death probe (not a measurement)',"
+                    + "context:{sleepWindow:'',workload:'',environment:'emulator',timingNotes:'',stayedComparable:'Same AVD',other:''},"
+                    + "expectation:'Should survive force-stop. Not a clinical claim.',"
+                    + "outcome:'Nothing noticeable happened.',"
+                    + "outcomeKind:'null',pattern:'first',uncertainty:'high',"
+                    + "notes:'Debug probe only. Not shipped UI fixture data.'"
+                    + "});}"
+                    + "var rows=store.list();"
+                    + "NooBridge.writeProbe(JSON.stringify({ok:true,phase:'seed',count:rows.length,id:rows[0]&&rows[0].id,kind:rows[0]&&rows[0].kind}));"
+                    + "}catch(e){NooBridge.writeProbe(JSON.stringify({ok:false,phase:'seed',error:String(e)}));}})();";
+        } else if ("dump".equals(debugCmd)) {
+            js = "(function(){try{"
+                    + "var c=globalThis.NOO_APPROVED_MISSIONS,N=globalThis.NooLog,s=localStorage;"
+                    + "var store=N.createStore(c,N.localStorageAdapter(N.STORAGE_KEY,s));"
+                    + "var exp=store.exportDocument();"
+                    + "NooBridge.writeProbe(JSON.stringify({ok:!!exp.ok,phase:'dump',count:exp.value&&exp.value.count,format:exp.value&&exp.value.format,kind:exp.value&&exp.value.observations&&exp.value.observations[0]&&exp.value.observations[0].kind,variable:exp.value&&exp.value.observations&&exp.value.observations[0]&&exp.value.observations[0].variable}));"
+                    + "}catch(e){NooBridge.writeProbe(JSON.stringify({ok:false,phase:'dump',error:String(e)}));}})();";
+        } else {
+            return;
+        }
+        webView.evaluateJavascript(js, null);
     }
 
     @Override
@@ -102,6 +149,24 @@ public class MainActivity extends Activity {
             intent.setType("application/json");
             intent.putExtra(Intent.EXTRA_TITLE, filename != null ? filename : "noo-observation-log.json");
             startActivityForResult(intent, REQUEST_CREATE_EXPORT);
+        }
+
+        @JavascriptInterface
+        public void writeProbe(String json) {
+            if (!BuildConfig.DEBUG) return;
+            try {
+                File file = new File(getFilesDir(), "noo-probe.json");
+                try (FileOutputStream out = new FileOutputStream(file)) {
+                    out.write((json == null ? "{}" : json).getBytes(StandardCharsets.UTF_8));
+                }
+                File ext = getExternalFilesDir(null);
+                if (ext != null) {
+                    try (FileOutputStream out = new FileOutputStream(new File(ext, "noo-probe.json"))) {
+                        out.write((json == null ? "{}" : json).getBytes(StandardCharsets.UTF_8));
+                    }
+                }
+            } catch (Exception ignored) {
+            }
         }
     }
 }
