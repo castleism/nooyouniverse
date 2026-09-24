@@ -19,6 +19,11 @@
 <meta name="twitter:description" content="Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking. No miracle stacks.">
 <meta name="twitter:image" content="https://nooyouniverse.com/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Noo YouNiverse","url":"https://nooyouniverse.com/","description":"Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking, narrated by Cillian — a fictional, AI-assisted Castleborn character."}</script>
 <style>
 :root{
@@ -190,6 +195,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <a href="#evidence">Evidence</a>
       <a href="/log">Mission Log</a>
       <a href="/sources">Sources</a>
+      <a href="/deck">Deck</a>
       <a class="btn btn-amber nav-cta" href="#waitlist">Join the waitlist</a>
     </div>
   </div>
@@ -206,6 +212,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <div class="hero-ctas">
         <a class="btn btn-amber" href="#waitlist">Join the flight log waitlist</a>
         <a class="btn btn-ghost" href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Meet Cillian</a>
+        <a class="btn btn-ghost" href="/deck#install">Add to your phone</a>
       </div>
       <p class="hero-note">Educational only. Not medical advice, and never a substitute for your clinician or pharmacist.</p>
     </div>
@@ -303,7 +310,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <span class="divider">|</span>
       Coming online: Instagram @noo.you.niverse · Facebook "Noo YouNiverse" · X @nooyouniverse
     </p>
-    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · AI-assisted imagery is disclosed and retained with provenance · <a href="/log">Mission Log</a> · <a href="/sources">Sources</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
+    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · AI-assisted imagery is disclosed and retained with provenance · <a href="/log">Mission Log</a> · <a href="/sources">Sources</a> · <a href="/deck">Deck</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
   </div>
 </footer>
 
@@ -344,6 +351,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
     });
   });
 })();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
 </script>
 </body>
 </html>

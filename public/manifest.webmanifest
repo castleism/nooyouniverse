@@ -1,0 +1,47 @@
+{
+  "name": "Noo YouNiverse",
+  "short_name": "Noo YouNiverse",
+  "description": "Evidence-labeled flight notes. Educational only. Not medical advice. Fictional, AI-assisted, human-reviewed.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0e24",
+  "theme_color": "#0b0e24",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Check hub",
+      "short_name": "Deck",
+      "description": "Websites and apps to look at on this phone",
+      "url": "/deck"
+    },
+    {
+      "name": "Mission Log",
+      "short_name": "Log",
+      "url": "/log"
+    },
+    {
+      "name": "Caffeine Is a Context Variable",
+      "short_name": "Mission 12",
+      "url": "/log#mission-12"
+    },
+    {
+      "name": "Sources",
+      "short_name": "Sources",
+      "url": "/sources"
+    }
+  ]
+}

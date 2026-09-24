@@ -14,3 +14,16 @@ Cloudflare Workers (static assets), Git-connected to this repo. Pushing to `main
 - `public/CNAME` — retained for the GitHub Pages fallback path only; harmless on Cloudflare.
 
 Custom domain is attached in the Cloudflare dashboard (Worker → Domains → Custom domains).
+
+## Phone / browser app
+
+The public site is a PWA (`public/manifest.webmanifest`, `public/sw.js`, `public/icons/`). After a merge + Cloudflare deploy:
+
+1. Open `https://nooyouniverse.com/deck` in Android Chrome.
+2. ⋮ → **Add to Home screen** or **Install app**.
+
+`/deck` is the check hub: live pages (including Mission 12), AliaSpaces, and the companion observation-log debug PR. Tick marks stay in that browser. This checkout **cannot** push an icon onto a physical phone.
+
+Playbook: `docs/ANDROID-HOME-SCREEN.md` · `docs/PHONE-CHECKLIST.md`.
+
+The private debug APK / offline Check Hub lives on draft PR #3 and is not a released store product. Public Mission 09 remains an unbuilt concept.
