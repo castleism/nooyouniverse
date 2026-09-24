@@ -1,0 +1,23 @@
+{
+  "name": "Noo You",
+  "accent": "#484675",
+  "purpose": "noticing your own experience",
+  "intro": "A private observation log built around the approved Noo missions. Notice, record and revisit your own experience.",
+  "features": [
+    "Explore the bundled, approved missions.",
+    "Save observations and use the existing filters to revisit them.",
+    "Use backup tools to keep a copy of your local log."
+  ],
+  "demo": [
+    "Review the adult-use disclosure in the app before proceeding.",
+    "Choose an available mission and read its actual instructions.",
+    "Record what you noticed in your own words. This tour does not accept the disclosure or add an observation."
+  ],
+  "setup": [
+    "Review the app’s disclosure yourself.",
+    "Choose one approved mission to explore.",
+    "Locate the observation filters and backup controls."
+  ],
+  "boundary": "Only the approved mission set is included. This is an observation prototype, not a clinical assessment, sensor system or treatment tool.",
+  "privacy": "The walkthrough does not request sensor access or upload observations. Your consent choices remain yours."
+}

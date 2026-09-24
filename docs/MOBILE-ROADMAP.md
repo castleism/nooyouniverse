@@ -63,3 +63,14 @@ Not a released product, treatment tool, recommendation engine, medical record, m
 | Android debug APK | ✅ rebuilt | `mobile/dist/noo-observation-log-debug.apk` |
 
 Owner phone-test prototypes remain local and were **not** available here. If a later sideload uses a different signature, export JSON from the old install and import — do not overwrite.
+
+
+## Design and phone checkpoint — 23 September 2026
+
+Midnight/periwinkle observation interface with orbital art. Existing approved mission log, filters and backups retained.
+
+Android debug build and automated checks passed; signature verified, installed in place and launched on Samsung SM-N986U1. This is not full workflow or store-release verification.
+
+Remaining: More approved missions, accessibility and release QA. Phone verification stops at the adult disclosure gate.
+
+Portfolio evidence: `mobile-publishing-2026-09-20/design-apks/phone-verification.json`, app build log, and `DESIGN-ROADMAP-STATUS.md`. Older environment limitations above are historical; the phone is now connected.

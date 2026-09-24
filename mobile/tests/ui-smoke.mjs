@@ -43,7 +43,7 @@ let server;
 
 function serve() {
   return new Promise((resolveServe, reject) => {
-    server = spawn("python3", ["-m", "http.server", port, "--directory", resolve(root, "web")], {
+    server = spawn(process.platform === "win32" ? "python" : "python3", ["-m", "http.server", port, "--directory", resolve(root, "web")], {
       cwd: root,
       stdio: "ignore",
     });

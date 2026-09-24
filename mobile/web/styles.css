@@ -202,3 +202,16 @@ textarea { min-height: 84px; resize: vertical; }
 #recoveryBanner:not(.hidden) {
   border-left-color: var(--unsup);
 }
+
+
+/* Approved September visual direction. Decoration never carries essential meaning. */
+.brand-art{display:block;width:min(100%,320px);height:140px;margin:8px auto 22px}
+button,input,select,summary{min-height:48px}summary{cursor:pointer;padding:14px 0;font-weight:600}
+details{border-top:1px solid #ddd7ce;padding:0 2px}details[open]{padding-bottom:16px}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #937149;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+:root{--ink:#0c1925;--navy:#152638;--navy2:#1b3045;--line:#314759;--amber:#c9bba3;--violet:#b4bfff}
+.top{position:relative;background:var(--ink);border:0;padding:24px}.top h1{font:36px/1.14 Georgia,serif;margin-top:18px;letter-spacing:-.03em}
+.banner{border-left:1px solid var(--line);padding:14px 18px}.card{border-radius:20px;padding:20px}
+.tabs{background:#0c1925}.btn{border-radius:28px}.btn-amber{background:#b4bfff;color:#111b2b}
