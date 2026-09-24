@@ -19,6 +19,11 @@
 <meta name="twitter:description" content="Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking. No miracle stacks.">
 <meta name="twitter:image" content="https://nooyouniverse.com/assets/og.jpg">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Noo YouNiverse","url":"https://nooyouniverse.com/","description":"Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking, narrated by Cillian — a fictional, AI-assisted Castleborn character."}</script>
 <style>
 :root{
@@ -190,6 +195,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <a href="#evidence">Evidence</a>
       <a href="/log">Mission Log</a>
       <a href="/sources">Sources</a>
+      <a href="/deck">Deck</a>
       <a class="btn btn-amber nav-cta" href="#waitlist">Join the waitlist</a>
     </div>
   </div>
@@ -206,6 +212,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <div class="hero-ctas">
         <a class="btn btn-amber" href="#waitlist">Join the flight log waitlist</a>
         <a class="btn btn-ghost" href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Meet Cillian</a>
+        <a class="btn btn-ghost" href="/deck#install">Add to your phone</a>
       </div>
       <p class="hero-note">Educational only. Not medical advice, and never a substitute for your clinician or pharmacist.</p>
     </div>
@@ -220,7 +227,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
     <div class="cards">
       <div class="card"><span class="num">LOG 01</span><h3>Decode the claim</h3><p>What a study, a label, or the phrase "clinically studied" can and cannot tell you — in plain English.</p></div>
       <a class="card" href="/log#mission-11"><span class="num">LOG 02</span><h3>Sleep before stack</h3><p>Fundamentals and confounders first. Most "brain hacks" fail because the ship's basics were never checked.</p></a>
-      <div class="card"><span class="num">LOG 03</span><h3>One variable at a time</h3><p>Change one switch, log it honestly, and keep the null results. That's how a pilot learns anything at all.</p></div>
+      <a class="card" href="/log#mission-12"><span class="num">LOG 03</span><h3>Caffeine Is a Context Variable</h3><p>If the coffee window moved the same day the stack did, you don't know which switch mattered. Log the basics first.</p></a>
     </div>
   </div>
 </section>
@@ -267,7 +274,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <div class="rule"><p>Corrections are published with the same visibility as the mistake — in the <a href="/corrections">corrections log</a>.</p></div>
       <div class="rule"><p>We never tell you what to take. We help you ask better questions.</p></div>
     </div>
-    <p style="margin-top:22px"><a class="btn btn-ghost" href="/log">Read the Mission Log — including Sleep before stack →</a></p>
+    <p style="margin-top:22px"><a class="btn btn-ghost" href="/log">Read the Mission Log — including Caffeine Is a Context Variable →</a></p>
   </div>
 </section>
 
@@ -303,7 +310,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
       <span class="divider">|</span>
       Coming online: Instagram @noo.you.niverse · Facebook "Noo YouNiverse" · X @nooyouniverse
     </p>
-    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · AI-assisted imagery is disclosed and retained with provenance · <a href="/log">Mission Log</a> · <a href="/sources">Sources</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
+    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · AI-assisted imagery is disclosed and retained with provenance · <a href="/log">Mission Log</a> · <a href="/sources">Sources</a> · <a href="/deck">Deck</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
   </div>
 </footer>
 
@@ -344,6 +351,7 @@ footer .fine{margin-top:18px;font-size:.78rem}
     });
   });
 })();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
 </script>
 </body>
 </html>

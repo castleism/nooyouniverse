@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0e24">
+<title>Check hub — Noo YouNiverse</title>
+<meta name="description" content="Phone check hub: every Noo YouNiverse page and companion app to look at, plus Android Add to Home screen.">
+<link rel="canonical" href="https://nooyouniverse.com/deck">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nooyouniverse.com/deck">
+<meta property="og:site_name" content="Noo YouNiverse">
+<meta property="og:title" content="Check hub — Noo YouNiverse">
+<meta property="og:description" content="Websites and apps to look at on this phone. Educational only. Not medical advice.">
+<meta property="og:image" content="https://nooyouniverse.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<style>
+:root{
+  --ink:#0b0e24;--navy:#121736;--navy2:#1a2047;--line:#2b3163;
+  --text:#e9ebf7;--muted:#a7add0;--amber:#f2b25c;--brass:#c9973f;--violet:#8f7dff;
+  --good:#5dd39e;--unk:#9aa0bf;
+  --radius:14px;--maxw:880px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--amber);text-decoration:none}
+a:hover,a:focus-visible{text-decoration:underline}
+:focus-visible{outline:2px solid var(--violet);outline-offset:2px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--violet);font-weight:700}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,14,36,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:18px;height:58px;max-width:1080px;margin:0 auto;padding:0 20px}
+.wordmark{font-weight:800;letter-spacing:.14em;font-size:.95rem;color:var(--text);white-space:nowrap}
+.wordmark .star{color:var(--amber)}
+.nav-links{display:flex;gap:16px;margin-left:auto;align-items:center;font-size:.9rem;flex-wrap:wrap}
+.nav-links a{color:var(--muted)}
+.nav-links a:hover{color:var(--text);text-decoration:none}
+.btn{display:inline-block;padding:8px 16px;border-radius:999px;font-weight:700;font-size:.85rem;border:1px solid transparent;cursor:pointer}
+.btn-amber{background:var(--amber);color:#231803}
+.btn-amber:hover{text-decoration:none}
+.btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--violet);text-decoration:none}
+header.page{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(1.8rem,4.5vw,2.6rem);line-height:1.15;margin:.3em 0 .4em}
+h2{font-size:1.25rem;margin:0 0 12px}
+.page-sub{color:var(--muted);max-width:64ch}
+main{padding:8px 0 72px}
+section{padding:36px 0 0}
+.panel{background:var(--navy);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.ctas{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.list{list-style:none;display:grid;gap:10px;margin-top:14px}
+.list li{background:var(--navy);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.list input{margin-top:5px;accent-color:var(--amber);width:18px;height:18px;flex:0 0 auto}
+.list a{font-weight:700}
+.list .hint{display:block;color:var(--muted);font-size:.88rem;font-weight:400}
+.steps{margin:12px 0 0 1.2em}
+.steps li{margin-bottom:8px}
+.callout{border:1px solid var(--line);border-left:3px solid var(--violet);border-radius:10px;padding:16px 18px;background:var(--navy);margin-top:16px;color:var(--muted);font-size:.92rem}
+.updated{font-size:.8rem;color:var(--unk);margin-top:8px}
+footer{border-top:1px solid var(--line);padding:40px 0 64px;font-size:.85rem;color:var(--muted);margin-top:56px}
+.disclosure{background:var(--navy);border:1px solid var(--line);border-left:3px solid var(--violet);border-radius:10px;padding:18px 20px;max-width:760px;margin:0 auto 24px}
+footer .fine{text-align:center;font-size:.78rem}
+#installStatus{margin-top:12px;font-size:.9rem;color:var(--muted);min-height:1.4em}
+#installStatus.ok{color:var(--good)}
+</style>
+</head>
+<body>
+
+<nav aria-label="Main">
+  <div class="nav-inner">
+    <a href="/" style="color:inherit"><span class="wordmark">NOO<span class="star"> ✦ </span>YOUNIVERSE</span></a>
+    <div class="nav-links">
+      <a href="/#mission">Mission</a>
+      <a href="/log">Mission Log</a>
+      <a href="/sources">Sources</a>
+      <a href="/deck" aria-current="page" style="color:var(--text)">Deck</a>
+      <a class="btn btn-amber" href="/#waitlist">Join the waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page">
+  <div class="wrap">
+    <span class="kicker">Phone deck</span>
+    <h1>Check hub</h1>
+    <p class="page-sub">Every Noo YouNiverse page and companion surface to look at on this phone. Tick items here — they stay in this browser. This page cannot install icons onto hardware by itself.</p>
+    <p class="updated">Fictional Castleborn character · AI-assisted &amp; human-reviewed · Educational only<br>Updated: 24 September 2026</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="install">
+  <h2>Save the website as a browser app</h2>
+  <div class="panel">
+    <p class="page-sub">On Android Chrome this site can sit on the home screen like an app (standalone window, branded icon). Cursor cannot tap Add to Home screen for you.</p>
+    <ol class="steps">
+      <li>Open this page in <strong>Chrome</strong> on the phone.</li>
+      <li>Tap <strong>⋮ → Add to Home screen</strong> or <strong>Install app</strong>.</li>
+      <li>Name it <strong>Noo YouNiverse</strong>.</li>
+      <li>Optional: add a second shortcut to <a href="/log#mission-12">Mission 12</a>.</li>
+    </ol>
+    <div class="ctas">
+      <button type="button" class="btn btn-amber" id="installBtn" hidden>Install Noo YouNiverse</button>
+      <a class="btn btn-ghost" href="/">Open the live home page</a>
+    </div>
+    <p id="installStatus" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<section id="site">
+  <h2>Live website</h2>
+  <ul class="list" data-list="site">
+    <li><input type="checkbox" id="c-home"><label for="c-home"><a href="/">Home</a><span class="hint">https://nooyouniverse.com/</span></label></li>
+    <li><input type="checkbox" id="c-log"><label for="c-log"><a href="/log">Mission Log</a><span class="hint">All flight notes, including Mission 12</span></label></li>
+    <li><input type="checkbox" id="c-m12"><label for="c-m12"><a href="/log#mission-12">Mission 12 — Caffeine Is a Context Variable</a><span class="hint">Draft entry · Strong context, not a dosing guide</span></label></li>
+    <li><input type="checkbox" id="c-src"><label for="c-src"><a href="/sources">Sources &amp; standards</a><span class="hint">Ledger row 12 + NHLBI links</span></label></li>
+    <li><input type="checkbox" id="c-corr"><label for="c-corr"><a href="/corrections">Corrections</a><span class="hint">Same visibility as the original</span></label></li>
+    <li><input type="checkbox" id="c-wl"><label for="c-wl"><a href="/#waitlist">Waitlist</a><span class="hint">Submit only works on the live host</span></label></li>
+    <li><input type="checkbox" id="c-a2hs"><label for="c-a2hs">Chrome Add to Home screen done<span class="hint">Live site icon — not a store listing</span></label></li>
+  </ul>
+</section>
+
+<section id="port">
+  <h2>Home port</h2>
+  <ul class="list" data-list="port">
+    <li><input type="checkbox" id="c-cil"><label for="c-cil"><a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a><span class="hint">Persona home port</span></label></li>
+    <li><input type="checkbox" id="c-priv"><label for="c-priv"><a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a></label></li>
+    <li><input type="checkbox" id="c-del"><label for="c-del"><a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></label></li>
+  </ul>
+</section>
+
+<section id="apps">
+  <h2>Companion app alongside the site</h2>
+  <div class="panel">
+    <p>The public site still treats the observation log as an <strong>unbuilt concept</strong> (Mission 09). A private debug Check Hub + on-device notes app is in draft <a href="https://github.com/castleism/nooyouniverse/pull/3" rel="noopener">PR #3</a> — not a released product, not on Play Store, and this environment cannot sideload it onto your phone.</p>
+    <ul class="list" style="margin-top:16px">
+      <li><input type="checkbox" id="c-pr3"><label for="c-pr3"><a href="https://github.com/castleism/nooyouniverse/pull/3" rel="noopener">Observation-log debug PR</a><span class="hint">APK + offline site snapshot if you sideload it yourself</span></label></li>
+      <li><input type="checkbox" id="c-apk"><label for="c-apk">Sideloaded debug APK (human only)<span class="hint">Keep it as a second icon. Do not confuse with the Chrome PWA.</span></label></li>
+    </ul>
+    <div class="callout">Still not listed on purpose: Instagram, Facebook, X, store submissions, and remote sync.</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="disclosure">
+      <strong>Who — and what — is Cillian?</strong><br>
+      Cillian O'Sullivan is a fictional Castleborn character and AI-assisted guide. He does not have a human body, a medical license, or any personal supplement-use history. Real-world health content on this project is educational, source-backed and human-reviewed. Nothing here is medical advice, diagnosis or treatment — talk to a qualified clinician or pharmacist about your own care.
+    </div>
+    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · <a href="/">Home</a> · <a href="/log">Mission Log</a> · <a href="/sources">Sources</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");
+
+  var KEY = "noo-phone-checklist-v1";
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { saved = {}; }
+  document.querySelectorAll('input[type=checkbox][id]').forEach(function(box){
+    box.checked = !!saved[box.id];
+    box.addEventListener("change", function(){
+      saved[box.id] = box.checked;
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (err) {}
+    });
+  });
+
+  var btn = document.getElementById("installBtn");
+  var status = document.getElementById("installStatus");
+  var deferred = null;
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    deferred = e;
+    btn.hidden = false;
+  });
+  btn.addEventListener("click", function(){
+    if (!deferred) return;
+    deferred.prompt();
+    deferred.userChoice.then(function(choice){
+      status.textContent = choice.outcome === "accepted"
+        ? "Install accepted — look for Noo YouNiverse on the home screen."
+        : "Install dismissed. You can still use ⋮ → Add to Home screen.";
+      status.className = choice.outcome === "accepted" ? "ok" : "";
+      deferred = null;
+      btn.hidden = true;
+    });
+  });
+  window.addEventListener("appinstalled", function(){
+    status.textContent = "Installed. Open it from the home screen like any other app.";
+    status.className = "ok";
+    btn.hidden = true;
+  });
+  if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone) {
+    status.textContent = "Already running as an installed browser app.";
+    status.className = "ok";
+  }
+})();
+</script>
+</body>
+</html>

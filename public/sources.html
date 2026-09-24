@@ -16,6 +16,11 @@
 <meta property="og:image" content="https://nooyouniverse.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <style>
 :root{
   --ink:#0b0e24;--navy:#121736;--navy2:#1a2047;--line:#2b3163;
@@ -84,6 +89,7 @@ footer .fine{text-align:center;font-size:.78rem}
       <a href="/#evidence">Evidence</a>
       <a href="/log">Mission Log</a>
       <a href="/sources" aria-current="page" style="color:var(--text)">Sources</a>
+      <a href="/deck">Deck</a>
       <a class="btn btn-amber" href="/#waitlist">Join the waitlist</a>
     </div>
   </div>
@@ -94,7 +100,7 @@ footer .fine{text-align:center;font-size:.78rem}
     <span class="kicker">Show your working</span>
     <h1>Sources &amp; standards</h1>
     <p class="page-sub">The charter says sources before slogans. This page is that promise made checkable: what every mission-log entry rests on, what the badges mean, and the lines this project will not cross.</p>
-    <p class="updated">Fictional Castleborn character · AI-assisted &amp; human-reviewed · Educational only<br>Last reviewed: 18 September 2026</p>
+    <p class="updated">Fictional Castleborn character · AI-assisted &amp; human-reviewed · Educational only<br>Last reviewed: 24 September 2026</p>
   </div>
 </header>
 
@@ -130,6 +136,7 @@ footer .fine{text-align:center;font-size:.78rem}
       <tr><td class="m">09</td><td><span class="basis b-edit">Editorial</span></td><td>No scientific or product claim. An explicitly unbuilt concept; product, privacy, security, legal and health review are required before any capability claim</td></tr>
       <tr><td class="m">10</td><td><span class="basis b-intro">Charter</span></td><td>No external factual claim — <a href="/log#mission-10">the charter</a></td></tr>
       <tr><td class="m">11</td><td><span class="basis b-agency">Agency</span></td><td><a href="https://www.nhlbi.nih.gov/health/sleep-deprivation/health-effects" rel="noopener">NHLBI — How Sleep Deprivation and Deficiency Affect Health</a> · sleep and fundamentals as Strong context for interpreting a stack claim; not a product rating, dose, or recommendation — <a href="/log#mission-11">Sleep before stack</a></td></tr>
+      <tr><td class="m">12</td><td><span class="basis b-agency">Agency</span></td><td><a href="https://www.nhlbi.nih.gov/health/sleep-deprivation/health-effects" rel="noopener">NHLBI — How Sleep Deprivation and Deficiency Affect Health</a> · <a href="https://www.nhlbi.nih.gov/health/sleep-deprivation/healthy-sleep-habits" rel="noopener">NHLBI — Healthy Sleep Habits</a> · caffeine as a familiar stimulant and Strong context for reading a focus/stack claim; not a product rating, dose, or recommendation — <a href="/log#mission-12">Caffeine Is a Context Variable</a></td></tr>
     </tbody>
   </table>
 </section>
@@ -177,9 +184,9 @@ footer .fine{text-align:center;font-size:.78rem}
       <strong>Who — and what — is Cillian?</strong><br>
       Cillian O'Sullivan is a fictional Castleborn character and AI-assisted guide. He does not have a human body, a medical license, or any personal supplement-use history. Real-world health content on this project is educational, source-backed and human-reviewed. Nothing here is medical advice, diagnosis or treatment — talk to a qualified clinician or pharmacist about your own care.
     </div>
-    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · <a href="/">Home</a> · <a href="/log">Mission Log</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
+    <p class="fine">© 2026 Noo YouNiverse · A Castleborn project · <a href="/">Home</a> · <a href="/log">Mission Log</a> · <a href="/deck">Deck</a> · <a href="/corrections">Corrections</a> · <a href="https://mypersonas.online/#/p/castleborn.cillian" rel="noopener">Cillian on AliaSpaces</a> · <a href="https://mypersonas.online/privacy.html" rel="noopener">Privacy</a> · <a href="https://mypersonas.online/data-deletion.html" rel="noopener">Data deletion</a></p>
   </div>
 </footer>
-
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js");</script>
 </body>
 </html>
