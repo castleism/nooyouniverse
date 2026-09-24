@@ -4,6 +4,9 @@ Static site for Noo YouNiverse (Cillian O'Sullivan, a fictional Castleborn chara
 
 **Source of truth:** `MyPersonas/nooyouniverse.com/` — edit there, copy into `public/` here, push to deploy.
 Docs & roadmap: `MyPersonas/nooyouniverse.com/SITE-ROADMAP.md`.
+Agent handoff: `AGENTS.md`. Mobile milestone roadmap: `docs/MOBILE-ROADMAP.md`.
+
+`mobile/` is a **private debug observation log**. Cloudflare still serves only `public/`. The public Mission Log and waitlist still describe the tracker as not a released product.
 
 ## Deploy
 
