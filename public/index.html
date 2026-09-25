@@ -178,6 +178,10 @@ footer .handles{margin:10px 0}
 footer .fine{margin-top:18px;font-size:.78rem}
 .divider{color:var(--line);padding:0 6px}
 </style>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -344,6 +348,13 @@ footer .fine{margin-top:18px;font-size:.78rem}
     });
   });
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
 </script>
 </body>
 </html>
