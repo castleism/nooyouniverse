@@ -1,6 +1,6 @@
 # Noo YouNiverse — mobile observation-log roadmap
 
-Updated: 2026-09-24 (check hub + offline site copy) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
+Updated: 2026-09-25 (installable PWAs + three-icon APK) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
 Companion to MyPersonas `nooyouniverse.com/SITE-ROADMAP.md` (site Phase 3 live; Package A still unapproved).
 
 This file tracks the **private debug tracker**, not a store product. Public Mission 09 remains an unbuilt-product concept.
@@ -33,7 +33,7 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Installable Android debug APK | ✅ `mobile/dist/noo-observation-log-debug.apk` |
 | Check hub of every site/app to verify | ✅ `mobile/web/hub.html` |
 | Offline snapshot of `public/` in the APK | ✅ `npm run bundle-site` |
-| Live-site PWA files for Chrome Add to Home screen | ✅ `public/manifest.webmanifest` (live after human deploy) |
+| Live-site PWA files for Chrome Add to Home screen | ✅ installable manifest + maskable icons + SW on all pages (live after human deploy; production manifest is still 404) |
 | Phone checklist | ✅ `docs/PHONE-CHECKLIST.md` |
 | Three Android launcher apps from one APK (site + log + hub) | ✅ |
 
@@ -63,7 +63,7 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 
 | Check | Result | Notes |
 |---|---|---|
-| `cd mobile && npm test` | ✅ | Catalog 01–11; corrections; wipe; filters; recovery |
+| `cd mobile && npm test` | ✅ 2026-09-25 | 21/21 including PWA install fields |
 | `cd mobile && npm run smoke` | ✅ | Gate → save → reload → `heartRate` rejected |
 | Emulator force-stop persistence | ✅ 2026-09-24 | Seed count 1 → force-stop → dump still `noo-private-observation-log` observation |
 | Android debug APK | ✅ | `mobile/dist/noo-observation-log-debug.apk` |

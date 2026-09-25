@@ -18,5 +18,9 @@ copyFileSync(resolve(web, "approved-missions.js"), resolve(androidWww, "approved
 copyFileSync(resolve(web, "noo-log.js"), resolve(androidWww, "noo-log.js"));
 copyFileSync(resolve(web, "manifest.webmanifest"), resolve(androidWww, "manifest.webmanifest"));
 copyFileSync(resolve(web, "icon.svg"), resolve(androidWww, "icon.svg"));
+copyFileSync(resolve(web, "icon-192.png"), resolve(androidWww, "icon-192.png"));
+copyFileSync(resolve(web, "icon-512.png"), resolve(androidWww, "icon-512.png"));
+copyFileSync(resolve(web, "icon-192-maskable.png"), resolve(androidWww, "icon-192-maskable.png"));
+copyFileSync(resolve(web, "icon-512-maskable.png"), resolve(androidWww, "icon-512-maskable.png"));
 copyFileSync(resolve(web, "sw.js"), resolve(androidWww, "sw.js"));
 console.log("Synced catalog + web assets into mobile/web and Android assets/www");

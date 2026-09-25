@@ -2,7 +2,7 @@
 
 This cloud checkout **cannot push an icon onto your phone**. After you open the live site in Chrome, Android can put it on the home screen like an app.
 
-PWA files (`public/manifest.webmanifest`, `public/icons/`, `public/sw.js`) are in this branch. They appear on `https://nooyouniverse.com` only after a human merges and Cloudflare deploys. Until then, Chrome may offer **Add to Home screen** as a shortcut even without a full install prompt.
+PWA files (`public/manifest.webmanifest`, maskable PNG icons, `public/sw.js`, `public/pwa-register.js`) are in this branch and meet Chrome’s install fields (standalone display, 192/512 any + maskable icons, fetch-handling service worker on every public page). They appear on `https://nooyouniverse.com` only after a human merges and Cloudflare deploys. Production still 404s `/manifest.webmanifest` today. Until then, install **Noo YouNiverse** from the debug APK for the saved website, and Chrome ⋮ → **Add to Home screen** still creates a shortcut to the live site.
 
 ## Live site (Chrome)
 

@@ -7,8 +7,9 @@
     "extract-missions": "node scripts/extract-missions.mjs",
     "sync-assets": "node scripts/sync-web-assets.mjs",
     "bundle-site": "node scripts/bundle-site-copy.mjs",
-    "prepare-web": "npm run extract-missions && npm run sync-assets && npm run bundle-site",
-    "test": "npm run prepare-web && node --test tests/catalog.test.mjs tests/store.test.mjs tests/hub-and-site.test.mjs",
+    "icons": "python3 scripts/write-pwa-icons.py",
+    "prepare-web": "npm run icons && npm run extract-missions && npm run sync-assets && npm run bundle-site",
+    "test": "npm run prepare-web && node --test tests/catalog.test.mjs tests/store.test.mjs tests/hub-and-site.test.mjs tests/pwa.test.mjs",
     "smoke": "npm run prepare-web && node tests/ui-smoke.mjs",
     "serve": "npm run prepare-web && python3 -m http.server 4173 --directory web"
   },

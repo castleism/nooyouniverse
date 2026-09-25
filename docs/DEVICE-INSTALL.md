@@ -18,7 +18,7 @@ Existing local phone-test prototypes are **not** in this cloud checkout. Do not 
 | **Private observation log** | On-device notes for missions 01–11 |
 | **Live in Chrome** links | Real `https://nooyouniverse.com` and AliaSpaces pages |
 
-The APK still has **no** `INTERNET` permission. Live links hand off to Chrome. Waitlist submit only works on the live site.
+The APK still has **no** `INTERNET` permission. Live links hand off to Chrome. Waitlist submit only works on the live site. The **Noo YouNiverse** launcher icon is the saved website as an app. The live site becomes a Chrome PWA after those files are deployed.
 
 ## Preserve data if signing differs
 
