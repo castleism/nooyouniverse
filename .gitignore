@@ -8,3 +8,8 @@ mobile/android/captures/
 *.iml
 .idea/
 local.properties
+
+# signing material never enters git
+*.jks
+*.keystore
+*.keystore.properties

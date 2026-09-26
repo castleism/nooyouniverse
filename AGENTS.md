@@ -15,7 +15,7 @@ The live Mission Log on `main` is the canon this checkout may use:
 - Missions **01–11** in `public/log.html`
 - Source-basis badges and ledger in `public/sources.html`
 
-Do **not** invent missions, curriculum, evidence tiers, sensor data, or clinical claims. Mission 12 exists only as a draft PR (`cursor/caffeine-context-variable-af50`) and is not approved on `main`. Package A drafts (alternate Missions 11–14 in MyPersonas outputs) were never approved and are not in this repo.
+Do **not** invent missions, curriculum, evidence tiers, sensor data, or clinical claims. The caffeine entry on `cursor/caffeine-context-variable-af50` is an unapproved draft. Package A drafts (MyPersonas outputs) are slated as Missions 12–15, unapproved, not in this repo; their art brief is `docs/CLAUDE-DESIGN-BRIEF-missions-12-15.md`.
 
 ## Public-site honesty
 
@@ -42,7 +42,8 @@ npm run smoke   # headless Chrome, skipped if Chrome/puppeteer-core missing
 npm run serve   # http://127.0.0.1:4173
 ```
 
-Android debug APK (when an SDK is present): see `docs/BUILD-ANDROID.md`.
+Android APK: `docs/BUILD-ANDROID.md` (Gradle when an SDK is present; `mobile/scripts/repack-apk.sh` when it is not). Release key: `_ops/keystores/`, never in git.
+Desktop / self-host: `docs/DESKTOP.md`, `deploy/docker/`.
 Owner phone sideload + hub: `docs/DEVICE-INSTALL.md`.
 Android Chrome home-screen site: `docs/ANDROID-HOME-SCREEN.md`.
 Phone checklist: `docs/PHONE-CHECKLIST.md`.

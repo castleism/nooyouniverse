@@ -1,6 +1,6 @@
 # Noo YouNiverse — mobile observation-log roadmap
 
-Updated: 2026-09-25 (installable PWAs + three-icon APK) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
+Updated: 2026-09-26 (merged to main; release-signed APK 0.2.0; Docker mirror) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
 Companion to MyPersonas `nooyouniverse.com/SITE-ROADMAP.md` (site Phase 3 live; Package A still unapproved).
 
 This file tracks the **private debug tracker**, not a store product. Public Mission 09 remains an unbuilt-product concept.
@@ -30,10 +30,13 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Public waitlist / Mission 09 unchanged | ✅ |
 | Unit tests | ✅ `cd mobile && npm test` |
 | Headless Chrome smoke | ✅ `npm run smoke` |
-| Installable Android debug APK | ✅ `mobile/dist/noo-observation-log-debug.apk` |
+| Installable Android debug APK | ✅ `mobile/dist/noo-observation-log-debug.apk` (dex source for repacks) |
+| **Release-signed sideload APK 0.2.0** | ✅ `mobile/dist/noo-observation-log-0.2.0-release.apk` — `com.nooyouniverse.observationlog`, not debuggable, studio release key; built 2026-09-26 by `scripts/repack-apk.sh` (Gradle-free; `docs/BUILD-ANDROID.md`) |
+| Gradle-free rebuild path when SDK downloads are blocked | ✅ `mobile/scripts/repack-apk.sh` |
+| Desktop install + self-host mirror | ✅ `docs/DESKTOP.md`, `deploy/docker/` |
 | Check hub of every site/app to verify | ✅ `mobile/web/hub.html` |
 | Offline snapshot of `public/` in the APK | ✅ `npm run bundle-site` |
-| Live-site PWA files for Chrome Add to Home screen | ✅ installable manifest + maskable icons + SW on all pages (live after human deploy; production manifest is still 404) |
+| Live-site PWA files for Chrome Add to Home screen | ✅ on `main` 2026-09-26: manifest + shortcuts + maskable icons + network-first SW + offline page on all pages; headless-verified. Live once the Cloudflare deploy in the evidence log shows ✅ |
 | Phone checklist | ✅ `docs/PHONE-CHECKLIST.md` |
 | Three Android launcher apps from one APK (site + log + hub) | ✅ |
 
@@ -47,17 +50,16 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Auth / remote sync | Documented why it stays out; no server added | Packet sign-off first |
 | No community / FHIR / sensors / dosing | Still not implemented | Do not approve those specs here |
 | iOS IPA / TestFlight / store submit | Listing drafts only; no Xcode; **not submitted** | Mac + you press Submit later |
-| Merge / deploy | Not done | You, after review |
+| Merge / deploy | Merged to `main` 2026-09-26 (owner-authorized). Deploy: see evidence log | Confirm deploy if the evidence log still shows ⚠️ |
 | Local phone prototypes | Not accessed | Export/import if you compare installs |
 
 ## Still blocked
 
-- Physical owner device (this checkout is not your phone)
-- Named health-claim approver
-- Signed release keystores / IPA
-- Store upload (accounts verified; submissions later)
-- Merge to `main` / Cloudflare deploy
-- Mission 12 still a draft PR, not catalog canon
+- Physical owner device (this checkout is not your phone) — APK + link staged; you tap Install
+- Named health-claim approver — **master blocker**, overdue since 2026-09-04
+- iOS IPA (needs a Mac); Android release keystore now exists (`_ops/keystores/`)
+- Store upload (accounts verified; submissions later; review packet unsigned)
+- Missions 12–15: copy drafted, art brief written (`docs/CLAUDE-DESIGN-BRIEF-missions-12-15.md`), zero approved; `cursor/caffeine-context-variable-af50` remains an unapproved draft branch
 
 ## Evidence log
 
@@ -67,5 +69,9 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | `cd mobile && npm run smoke` | ✅ | Gate → save → reload → `heartRate` rejected |
 | Emulator force-stop persistence | ✅ 2026-09-24 | Seed count 1 → force-stop → dump still `noo-private-observation-log` observation |
 | Android debug APK | ✅ | `mobile/dist/noo-observation-log-debug.apk` |
+| Release APK 0.2.0 repack | ✅ 2026-09-26 | aapt2 rebuild of manifest/arsc (versionCode 2, debuggable=false), dex reused from `95df7f2` build with `BuildConfig.DEBUG` flipped false, no `.deploy-poke` in assets, zipalign + v2/v3 signature verified, badging verified. **Not run on a device/emulator in this environment** (no SDK/KVM) — first launch on the phone is the runtime check |
+| PWA on `main`, headless Chromium | ✅ 2026-09-26 | SW active on `/`, `/log`, `/sources`, `/corrections`; 14 shell entries cached; offline `/log` served from cache; offline unknown route → "Signal lost" page |
+| `deploy/docker` nginx parity | ✅ config, ⚠️ image | `verify.sh` 10/10 against nginx running the shipped `nginx.conf`; `docker build` not run here (no daemon) |
+| Cloudflare deploy of `main` | ⚠️ pending | see the session summary / `_ops` report for the state at hand-off |
 | Play / App Store submit | ❌ not done | Drafts only |
 | Owner phone | ⚠️ APK + steps in Drive | https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway — you tap Install |

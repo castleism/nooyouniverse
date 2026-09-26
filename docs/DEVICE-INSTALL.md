@@ -2,10 +2,10 @@
 
 This cloud checkout cannot tap your launcher. The APK and install note are in your Google Drive folder so the phone can fetch them: https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway
 
-Debug APK: `mobile/dist/noo-observation-log-debug.apk`  
-Package id: `com.nooyouniverse.observationlog.debug`  
+**Install this:** `mobile/dist/noo-observation-log-0.2.0-release.apk` (2026-09-26)  
+Package id: `com.nooyouniverse.observationlog` · versionCode 2 · signed with the studio release key (`_ops/keystores/noo-release-2026.jks`, cert SHA-256 `1241938b…eb0f`)  
 Launcher names after install: **Noo Check Hub**, **Noo YouNiverse**, **Noo Observation Log**  
-This build is **debug-signed**. Store submission is later.
+Still a sideload, not a store build. The older `noo-observation-log-debug.apk` (`….debug` id, 0.1.0) can stay installed side by side; move notes with Transfer → export/import.
 
 Existing local phone-test prototypes are **not** in this cloud checkout. Do not overwrite them.
 
@@ -32,7 +32,7 @@ Android will refuse an upgrade when the signature does not match.
 ## Android sideload (personal Google account)
 
 1. Enable Install unknown apps for the Files / browser app you will use.
-2. Copy `mobile/dist/noo-observation-log-debug.apk` to the phone.
+2. Copy `mobile/dist/noo-observation-log-0.2.0-release.apk` to the phone (or open it from the Drive folder above).
 3. Install. Accept only the sideload prompt — this APK requests **no** network, sensors, or accounts.
 4. After install you should see **three** home-screen apps from this one APK:
    - **Noo YouNiverse** — saved website (offline copy of home, /log, /sources, /corrections)
@@ -57,7 +57,7 @@ The live-site install uses PWA files in `public/`. Those are on this branch; the
 
 ## Tick when done
 
-- [ ] Sideloaded this APK (or refused because signature collided — then used export/import)
+- [ ] Sideloaded `noo-observation-log-0.2.0-release.apk` (new package id — no signature collision with the debug build)
 - [ ] Hub listed site copy + observation log + live links
 - [ ] Offline Mission Log 01–11 readable without radio
 - [ ] Gate accepted on the observation log
