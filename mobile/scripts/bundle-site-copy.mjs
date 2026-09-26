@@ -4,7 +4,7 @@
  * Rewrites Cloudflare clean URLs so file:// navigation works.
  * Does not change the live public/ waitlist or Mission 09 copy.
  */
-import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -13,7 +13,10 @@ const src = resolve(root, "public");
 const dest = resolve(root, "mobile/android/app/src/main/assets/site");
 
 mkdirSync(dirname(dest), { recursive: true });
-cpSync(src, dest, { recursive: true, force: true });
+rmSync(dest, { recursive: true, force: true });
+// Cloudflare-only files never belong in the offline copy.
+const SKIP = new Set(["_headers", "CNAME", "robots.txt", "sitemap.xml", ".deploy-poke"]);
+cpSync(src, dest, { recursive: true, force: true, filter: (p) => !SKIP.has(p.split(/[\\/]/).pop()) });
 
 const banner =
   '<div id="noo-offline-copy-banner" style="position:sticky;top:0;z-index:80;background:#1a2047;color:#e9ebf7;border-bottom:1px solid #2b3163;padding:8px 14px;font:600 .78rem/1.4 ui-sans-serif,system-ui,sans-serif;">Offline website copy in Noo Check Hub. <a href="file:///android_asset/www/hub.html" style="color:#f2b25c">Back to hub</a> · Waitlist send needs the live site in Chrome.</div>';

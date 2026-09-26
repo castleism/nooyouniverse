@@ -35,11 +35,11 @@ test("public site manifest meets Chrome install fields", () => {
   const manifest = readJson("public/manifest.webmanifest");
   assertInstallable(manifest, "public");
   const sw = readFileSync(resolve(root, "public/sw.js"), "utf8");
-  assert.match(sw, /addEventListener\("fetch"/);
+  assert.match(sw, /addEventListener\(["']fetch["']/);
   for (const page of ["index.html", "log.html", "sources.html", "corrections.html"]) {
     const html = readFileSync(resolve(root, "public", page), "utf8");
     assert.match(html, /manifest\.webmanifest/);
-    assert.match(html, /pwa-register\.js/);
+    assert.match(html, /serviceWorker\.register\(["']\/sw\.js["']\)/);
   }
 });
 

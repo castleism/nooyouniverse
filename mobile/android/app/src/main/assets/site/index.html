@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0e24">
 <title>Noo YouNiverse — evidence-labeled flight notes for your brain</title>
 <meta name="description" content="Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking from Cillian — a fictional, AI-assisted Castleborn character. No miracle stacks, no invented experience.">
 <link rel="canonical" href="https://nooyouniverse.com/">
@@ -17,13 +18,7 @@
 <meta name="twitter:title" content="Noo YouNiverse — your brain is the only spaceship you'll ever pilot">
 <meta name="twitter:description" content="Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking. No miracle stacks.">
 <meta name="twitter:image" content="https://nooyouniverse.com/assets/og.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
-<link rel="manifest" href="/manifest.webmanifest">
-<meta name="theme-color" content="#0b0e24">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Noo YouNiverse">
-<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Noo YouNiverse","url":"https://nooyouniverse.com/","description":"Evidence-labeled flight notes on focus, sleep, nootropics and self-tracking, narrated by Cillian — a fictional, AI-assisted Castleborn character."}</script>
 <style>
 :root{
@@ -183,6 +178,10 @@ footer .handles{margin:10px 0}
 footer .fine{margin-top:18px;font-size:.78rem}
 .divider{color:var(--line);padding:0 6px}
 </style>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 <div id="noo-offline-copy-banner" style="position:sticky;top:0;z-index:80;background:#1a2047;color:#e9ebf7;border-bottom:1px solid #2b3163;padding:8px 14px;font:600 .78rem/1.4 ui-sans-serif,system-ui,sans-serif;">Offline website copy in Noo Check Hub. <a href="file:///android_asset/www/hub.html" style="color:#f2b25c">Back to hub</a> · Waitlist send needs the live site in Chrome.</div>
@@ -351,6 +350,12 @@ footer .fine{margin-top:18px;font-size:.78rem}
   });
 })();
 </script>
-<script src="/pwa-register.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
 </body>
 </html>

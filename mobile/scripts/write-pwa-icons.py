@@ -5,7 +5,7 @@ import struct
 import zlib
 
 ROOT = Path(__file__).resolve().parents[2]
-OUTS = [ROOT / "public" / "icons", ROOT / "mobile" / "web"]
+OUTS = [ROOT / "mobile" / "web"]  # public/ ships its own branded set under /assets
 
 
 def chunk(tag: bytes, data: bytes) -> bytes:

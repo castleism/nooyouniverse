@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://nooyouniverse.com/sitemap.xml
