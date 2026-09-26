@@ -72,6 +72,6 @@ This file tracks the **private debug tracker**, not a store product. Public Miss
 | Release APK 0.2.0 repack | ✅ 2026-09-26 | aapt2 rebuild of manifest/arsc (versionCode 2, debuggable=false), dex reused from `95df7f2` build with `BuildConfig.DEBUG` flipped false, no `.deploy-poke` in assets, zipalign + v2/v3 signature verified, badging verified. **Not run on a device/emulator in this environment** (no SDK/KVM) — first launch on the phone is the runtime check |
 | PWA on `main`, headless Chromium | ✅ 2026-09-26 | SW active on `/`, `/log`, `/sources`, `/corrections`; 14 shell entries cached; offline `/log` served from cache; offline unknown route → "Signal lost" page |
 | `deploy/docker` nginx parity | ✅ config, ⚠️ image | `verify.sh` 10/10 against nginx running the shipped `nginx.conf`; `docker build` not run here (no daemon) |
-| Cloudflare deploy of `main` | ⚠️ pending | see the session summary / `_ops` report for the state at hand-off |
+| Cloudflare deploy of `main` | ✅ 2026-09-26 | Git build of 0478c13 succeeded; version 2917eaa8 at 100% traffic. Live: manifest 200 (3 shortcuts), SW active, offline page 200, `.deploy-poke` 404, CSP/nosniff/frame-deny present. CSP then widened for Cloudflare Web Analytics |
 | Play / App Store submit | ❌ not done | Drafts only |
 | Owner phone | ⚠️ APK + steps in Drive | https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway — you tap Install |
