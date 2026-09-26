@@ -59,3 +59,10 @@ efficacy, clinical validation, or lived experience.
 - **2026-09-25** — PWA files, favicon, checkpoint of local work.
 - **2026-09-18** — Mission 11 live.
 - **2026-08-26** — Phase 3 verified live.
+- **2026-09-26 (later)** — `main` 0478c13 pushed; Cloudflare Git build
+  succeeded and deployed (version 2917eaa8, 100% traffic). Live readback:
+  `/manifest.webmanifest` 200 (5 icons, 3 shortcuts), `/sw.js` 200 and
+  active, `/offline.html` 200, `/.deploy-poke` and `/_headers` 404, CSP +
+  nosniff + frame-deny on every response. Follow-up: CSP allow-listed
+  Cloudflare Web Analytics (`static.cloudflareinsights.com`,
+  `cloudflareinsights.com`) which the first CSP had blocked.
