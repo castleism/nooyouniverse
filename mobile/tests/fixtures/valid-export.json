@@ -1,0 +1,34 @@
+{
+  "format": "noo-private-observation-log",
+  "version": 1,
+  "kind": "private-observation-log",
+  "not": ["medical-record", "measurement-export", "clinical-claim", "sensor-log", "released-product"],
+  "disclaimer": "Synthetic fixture for tests only.",
+  "exportedAt": "2026-09-20T12:00:00.000Z",
+  "count": 1,
+  "observations": [
+    {
+      "id": "fixture-obs-001",
+      "missionId": "mission-03",
+      "createdAt": "2026-09-20T11:00:00.000Z",
+      "updatedAt": "2026-09-20T11:00:00.000Z",
+      "observedAt": "2026-09-20T10:30:00.000Z",
+      "variable": "Work-block start time (ordinary routine, one switch)",
+      "context": {
+        "sleepWindow": "Went to bed around the usual clock time",
+        "workload": "Normal weekday backlog",
+        "environment": "Same desk, quieter than usual",
+        "timingNotes": "Morning block",
+        "other": ""
+      },
+      "expectation": "Expected the earlier start to feel more focused. This is an expectation, not a prediction of an effect.",
+      "outcome": "Nothing noticeable happened.",
+      "outcomeKind": "null",
+      "pattern": "first",
+      "uncertainty": "high",
+      "notes": "Fixture only. Not a measurement.",
+      "kind": "observation",
+      "notAMeasurement": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "format": "noo-private-observation-log",
+  "version": 1,
+  "kind": "private-observation-log",
+  "observations": [
+    {
+      "id": "fixture-bad-measurement",
+      "missionId": "mission-04",
+      "observedAt": "2026-09-20T10:30:00.000Z",
+      "variable": "Should be rejected",
+      "outcome": "Should be rejected",
+      "outcomeKind": "noticed",
+      "pattern": "first",
+      "uncertainty": "unknown",
+      "heartRate": 72,
+      "measurements": {
+        "spo2": 98
+      }
+    }
+  ]
+}

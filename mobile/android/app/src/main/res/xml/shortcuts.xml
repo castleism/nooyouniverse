@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="site"
+        android:shortcutShortLabel="@string/shortcut_site"
+        android:shortcutLongLabel="@string/app_name_site">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.nooyouniverse.observationlog.debug"
+            android:targetClass="com.nooyouniverse.observationlog.SiteLauncher" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="log"
+        android:shortcutShortLabel="@string/shortcut_log"
+        android:shortcutLongLabel="@string/app_name_log">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.nooyouniverse.observationlog.debug"
+            android:targetClass="com.nooyouniverse.observationlog.LogLauncher" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="hub"
+        android:shortcutShortLabel="@string/shortcut_hub"
+        android:shortcutLongLabel="@string/app_name_hub">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.nooyouniverse.observationlog.debug"
+            android:targetClass="com.nooyouniverse.observationlog.HubLauncher" />
+    </shortcut>
+</shortcuts>

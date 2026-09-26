@@ -1,0 +1,17 @@
+{
+  "format": "noo-private-observation-log",
+  "version": 1,
+  "kind": "private-observation-log",
+  "observations": [
+    {
+      "id": "fixture-unknown-mission",
+      "missionId": "mission-99",
+      "observedAt": "2026-09-20T10:30:00.000Z",
+      "variable": "Invented mission must be rejected",
+      "outcome": "Should never import",
+      "outcomeKind": "noticed",
+      "pattern": "first",
+      "uncertainty": "unknown"
+    }
+  ]
+}
