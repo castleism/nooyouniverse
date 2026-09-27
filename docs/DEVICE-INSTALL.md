@@ -1,5 +1,7 @@
 # Owner device install — sideload + home-screen playbook
 
+**2026-09-27: portfolio-wide installation hold. Do not execute install/uninstall/update recipes below until that gate is explicitly released.**
+
 This cloud checkout cannot tap your launcher. The APK and install note are in your Google Drive folder so the phone can fetch them: https://drive.google.com/drive/folders/1sAyTL0yxwY8SpEpfpHBnXpR8w0nOAway
 
 **Install this:** `mobile/dist/noo-observation-log-0.2.0-release.apk` (2026-09-26)  

@@ -1,5 +1,7 @@
 # Noo YouNiverse — mobile observation-log roadmap
 
+**2026-09-27 execution:** See [DATA-TRANSITION-20260927.md](DATA-TRANSITION-20260927.md) for fresh build/test evidence, source reconciliation and remaining dependencies. Portfolio installation hold remains active.
+
 Updated: 2026-09-26 (merged to main; release-signed APK 0.2.0; Docker mirror) · Owner: Christian · Persona: Cillian / Noo YouNiverse  
 Companion to MyPersonas `nooyouniverse.com/SITE-ROADMAP.md` (site Phase 3 live; Package A still unapproved).
 

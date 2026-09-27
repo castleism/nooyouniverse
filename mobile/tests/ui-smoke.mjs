@@ -13,7 +13,9 @@ const require = createRequire(import.meta.url);
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const chrome =
   process.env.CHROME_PATH ||
-  ["/usr/bin/google-chrome", "/usr/local/bin/google-chrome", "/usr/bin/google-chrome-stable"].find(
+  ["/usr/bin/google-chrome", "/usr/local/bin/google-chrome", "/usr/bin/google-chrome-stable",
+    "C:/Program Files/Google/Chrome/Application/chrome.exe",
+    "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"].find(
     (p) => {
       try {
         require("node:fs").accessSync(p);
@@ -37,19 +39,25 @@ try {
   process.exit(0);
 }
 
-const port = process.env.NOO_SMOKE_PORT || "4173";
+const port = process.env.NOO_SMOKE_PORT || "18474";
 const url = "http://127.0.0.1:" + port + "/";
 let server;
 
-function serve() {
-  return new Promise((resolveServe, reject) => {
-    server = spawn("python3", ["-m", "http.server", port, "--directory", resolve(root, "web")], {
+async function serve() {
+  await new Promise((resolveServe, reject) => {
+    server = spawn(process.env.PYTHON || (process.platform === 'win32' ? 'python' : 'python3'), ["-m", "http.server", port, "--bind", "127.0.0.1", "--directory", resolve(root, "web")], {
       cwd: root,
-      stdio: "ignore",
+      stdio: "inherit",
     });
     server.on("error", reject);
-    setTimeout(resolveServe, 400);
+    server.once("spawn", resolveServe);
   });
+  for (let attempt = 0; attempt < 100; attempt++) {
+    if (server.exitCode !== null) throw new Error('Smoke server exited before becoming ready');
+    try { if ((await fetch(url)).ok) return; } catch {}
+    await new Promise(resolveReady => setTimeout(resolveReady, 100));
+  }
+  throw new Error('Smoke server did not become ready');
 }
 
 const invalid = {
@@ -81,7 +89,9 @@ try {
   await serve();
   const page = await browser.newPage();
   await page.setViewport({ width: 390, height: 844, isMobile: true });
-  await page.goto(url, { waitUntil: "domcontentloaded" });
+  const response = await page.goto(url, { waitUntil: "domcontentloaded" });
+  assert.equal(response.status(), 200, await page.content());
+  assert.match(await page.content(), /id="acceptGate"/, 'Smoke server must serve the observation log');
 
   await page.waitForSelector("#acceptGate");
   await page.click("#acceptGate");

@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-27",
+  "artifact": "mobile/dist/noo-observation-log-0.2.1-release.apk",
+  "sha256": "8bd8b9c0ba03de4174030819e2c6a49563a5f4192b13fa8cfb4d0b3a401122c5",
+  "metadata": [
+    "package: name='com.nooyouniverse.observationlog' versionCode='3' versionName='0.2.1' platformBuildVersionName='14' platformBuildVersionCode='34' compileSdkVersion='34' compileSdkVersionCodename='14'",
+    "sdkVersion:'24'",
+    "targetSdkVersion:'36'"
+  ],
+  "certificateSha256": [
+    "Signer #1 certificate SHA-256 digest: 1241938be1eea287e5797c8671640157082027a391b4dffb1168c7a4ccd0eb0f"
+  ],
+  "installed": false,
+  "bundledSourceFiles": 39,
+  "mismatches": []
+}

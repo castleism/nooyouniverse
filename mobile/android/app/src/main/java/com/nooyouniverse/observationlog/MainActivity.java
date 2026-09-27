@@ -84,6 +84,7 @@ public class MainActivity extends Activity {
         webView.addJavascriptInterface(new Bridge(), "NooBridge");
         webView.loadUrl(startUrl());
         setContentView(webView);
+        WindowSafety.apply(this);
     }
 
     private String startUrl() {
