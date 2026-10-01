@@ -15,7 +15,7 @@
 <meta property="og:description" content="Every source behind the mission log, and the standard each entry is held to.">
 <meta property="og:image" content="https://nooyouniverse.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <style>
 :root{
   --ink:#0b0e24;--navy:#121736;--navy2:#1a2047;--line:#2b3163;
@@ -72,9 +72,11 @@ li{margin-bottom:8px}
 footer{border-top:1px solid var(--line);padding:40px 0 64px;font-size:.85rem;color:var(--muted);margin-top:56px}
 .disclosure{background:var(--navy);border:1px solid var(--line);border-left:3px solid var(--violet);border-radius:10px;padding:18px 20px;max-width:760px;margin:0 auto 24px}
 footer .fine{text-align:center;font-size:.78rem}
+@media(max-width:900px){.nav-inner{height:auto;min-height:58px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}.nav-links{margin-left:0;flex-wrap:wrap;gap:8px 16px}.nav-links a{display:inline-flex;align-items:center;min-height:44px}}
+.source-table-scroll{overflow-x:auto} .source-table-scroll table{min-width:620px}
 </style>
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="apple-touch-icon" href="/assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
@@ -88,6 +90,7 @@ footer .fine{text-align:center;font-size:.78rem}
       <a href="index.html#mission">Mission</a>
       <a href="index.html#evidence">Evidence</a>
       <a href="log.html">Mission Log</a>
+      <a href="education.html">Learn</a>
       <a href="sources.html" aria-current="page" style="color:var(--text)">Sources</a>
       <a class="btn btn-amber" href="index.html#waitlist">Join the waitlist</a>
     </div>
@@ -121,6 +124,7 @@ footer .fine{text-align:center;font-size:.78rem}
 <section id="ledger">
   <span class="kicker">The ledger</span>
   <h2>Source for every mission</h2>
+  <div class="source-table-scroll" tabindex="0" role="region" aria-label="Mission sources; scroll horizontally if needed">
   <table>
     <thead><tr><th>Mission</th><th>Basis</th><th>Source</th></tr></thead>
     <tbody>
@@ -137,6 +141,7 @@ footer .fine{text-align:center;font-size:.78rem}
       <tr><td class="m">11</td><td><span class="basis b-agency">Agency</span></td><td><a href="https://www.nhlbi.nih.gov/health/sleep-deprivation/health-effects" rel="noopener">NHLBI — How Sleep Deprivation and Deficiency Affect Health</a> · sleep and fundamentals as Strong context for interpreting a stack claim; not a product rating, dose, or recommendation — <a href="log.html#mission-11">Sleep before stack</a></td></tr>
     </tbody>
   </table>
+  </div>
 </section>
 
 <section id="standard">

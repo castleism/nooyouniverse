@@ -1,9 +1,10 @@
 /* Offline shell only. Does not sync notes and does not talk to a server. */
-var CACHE = "noo-observation-shell-v1";
+var CACHE = "noo-observation-shell-v2-education";
 var ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
+  "./education.css",
   "./app.js",
   "./noo-log.js",
   "./approved-missions.js",

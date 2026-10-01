@@ -26,6 +26,8 @@ function rewrite(html) {
     .replace(/href="\/log#/g, 'href="log.html#')
     .replace(/href="\/log"/g, 'href="log.html"')
     .replace(/href="\/sources"/g, 'href="sources.html"')
+    .replace(/href="\/education"/g, 'href="education.html"')
+    .replace(/href="\/assets\//g, 'href="assets/')
     .replace(/href="\/corrections"/g, 'href="corrections.html"')
     .replace(/href="\/#/g, 'href="index.html#')
     .replace(/href="\/"/g, 'href="index.html"')

@@ -51,7 +51,7 @@
       panel.classList.toggle("active", panel.getAttribute("data-panel") === name);
     });
     document.querySelectorAll(".tabs button").forEach(function (btn) {
-      btn.setAttribute("aria-selected", btn.getAttribute("data-tab") === name ? "true" : "false");
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-tab") === name ? "true" : "false");
     });
     render();
   }

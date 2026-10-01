@@ -75,7 +75,7 @@ a { color: var(--amber); }
   transform: translateX(-50%);
   width: min(560px, 100%);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   background: rgba(18, 23, 54, 0.96);
   border-top: 1px solid var(--line);
   z-index: 30;
@@ -89,7 +89,7 @@ a { color: var(--amber); }
   font-weight: 700;
   letter-spacing: 0.04em;
 }
-.tabs button[aria-selected="true"] { color: var(--amber); }
+.tabs button[aria-pressed="true"] { color: var(--amber); }
 
 .panel { display: none; padding: 14px 16px 24px; }
 .panel.active { display: block; }
